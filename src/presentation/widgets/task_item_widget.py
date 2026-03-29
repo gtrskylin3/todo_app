@@ -10,15 +10,17 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (
     QCheckBox,
-    QFrame,
     QHBoxLayout,
     QLabel,
+    QFrame,
     QPushButton,
     QSizePolicy,
     QSpacerItem,
     QVBoxLayout,
     QWidget,
 )
+
+from src.presentation.styles import get_task_item_styles
 
 
 class TaskItemWidget(QFrame):
@@ -42,15 +44,17 @@ class TaskItemWidget(QFrame):
 
     def __init__(self, task_id: int, title: str, description: str | None,
                  created_at: datetime, completed_at: datetime | None,
+                 show_checkbox: bool = True,
                  parent: QWidget | None = None):
         """Initialize the task item widget.
-        
+
         Args:
             task_id: Unique identifier for the task.
             title: Task title.
             description: Task description (optional).
             created_at: Task creation timestamp.
             completed_at: Task completion timestamp (None if not completed).
+            show_checkbox: Whether to show the checkbox (True for active tasks).
             parent: Parent widget.
         """
         super().__init__(parent)
@@ -60,6 +64,7 @@ class TaskItemWidget(QFrame):
         self._description = description
         self._created_at = created_at
         self._completed_at = completed_at
+        self._show_checkbox = show_checkbox
         self._is_expanded = False
 
         self._setup_ui()
@@ -67,25 +72,27 @@ class TaskItemWidget(QFrame):
 
     def _setup_ui(self) -> None:
         """Set up the user interface components."""
-        self.setFrameStyle(QFrame.Shape.StyledPanel | QFrame.Shadow.Raised)
-
         # Main layout
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(8, 8, 8, 8)
         main_layout.setSpacing(4)
 
-        # Top row: checkbox, title, date
+        # Top row: checkbox (optional), title, date
         top_layout = QHBoxLayout()
         top_layout.setSpacing(8)
 
-        # Checkbox
-        self._checkbox = QCheckBox()
-        self._checkbox.setChecked(self._completed_at is not None)
-        self._checkbox.stateChanged.connect(self._on_checkbox_changed)
-        top_layout.addWidget(self._checkbox)
+        # Checkbox (only for active tasks)
+        if self._show_checkbox:
+            self._checkbox = QCheckBox()
+            self._checkbox.setChecked(self._completed_at is not None)
+            self._checkbox.stateChanged.connect(self._on_checkbox_changed)
+            top_layout.addWidget(self._checkbox)
+        else:
+            self._checkbox = None
 
         # Title label (clickable)
         self._title_label = QLabel(self._title)
+        self._title_label.setObjectName("titleLabel")
         self._title_label.setCursor(Qt.CursorShape.PointingHandCursor)
         self._title_label.mousePressEvent = self._on_title_clicked  # type: ignore
         title_font = QFont()
@@ -98,6 +105,7 @@ class TaskItemWidget(QFrame):
         # Date label
         date_str = self._get_date_string()
         self._date_label = QLabel(f"[{date_str}]")
+        self._date_label.setObjectName("dateLabel")
         date_font = QFont()
         date_font.setPointSize(9)
         self._date_label.setFont(date_font)
@@ -165,57 +173,7 @@ class TaskItemWidget(QFrame):
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern appearance."""
-        self.setStyleSheet("""
-            TaskItemWidget {
-                background-color: #2b2b2b;
-                border-radius: 6px;
-                border: 1px solid #3e3e3e;
-            }
-            TaskItemWidget:hover {
-                border: 1px solid #505050;
-            }
-            QCheckBox {
-                spacing: 8px;
-            }
-            QCheckBox::indicator {
-                width: 18px;
-                height: 18px;
-                border-radius: 3px;
-                border: 2px solid #505050;
-                background-color: #3e3e3e;
-            }
-            QCheckBox::indicator:checked {
-                background-color: #4a9eff;
-                border: 2px solid #4a9eff;
-            }
-            QCheckBox::indicator:hover {
-                border: 2px solid #6aafff;
-            }
-            QLabel {
-                color: #e0e0e0;
-            }
-            QPushButton {
-                background-color: #3e3e3e;
-                border: 1px solid #505050;
-                border-radius: 4px;
-                padding: 6px 12px;
-                color: #e0e0e0;
-            }
-            QPushButton:hover {
-                background-color: #4a4a4a;
-                border: 1px solid #6a6a6a;
-            }
-            QPushButton:pressed {
-                background-color: #303030;
-            }
-            QPushButton#deleteButton {
-                background-color: #5a2a2a;
-                border: 1px solid #7a3a3a;
-            }
-            QPushButton#deleteButton:hover {
-                background-color: #6a3a3a;
-            }
-        """)
+        self.setStyleSheet(get_task_item_styles())
 
     def _get_date_string(self) -> str:
         """Get the date string for display.
@@ -266,10 +224,20 @@ class TaskItemWidget(QFrame):
 
     def update_completion_status(self, is_completed: bool) -> None:
         """Update the checkbox state without emitting signal.
-        
+
         Args:
             is_completed: Whether the task is completed.
         """
-        self._checkbox.blockSignals(True)
-        self._checkbox.setChecked(is_completed)
-        self._checkbox.blockSignals(False)
+        if self._checkbox:
+            self._checkbox.blockSignals(True)
+            self._checkbox.setChecked(is_completed)
+            self._checkbox.blockSignals(False)
+
+    def hide_checkbox(self) -> None:
+        """Hide the checkbox for completed tasks view.
+        
+        Note: This method is kept for backward compatibility.
+        Use show_checkbox=False in constructor instead.
+        """
+        if self._checkbox:
+            self._checkbox.setVisible(False)

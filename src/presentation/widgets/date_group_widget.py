@@ -9,14 +9,16 @@ from datetime import datetime
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (
-    QFrame,
     QHBoxLayout,
     QLabel,
+    QFrame,
     QSizePolicy,
     QSpacerItem,
     QVBoxLayout,
     QWidget,
 )
+
+from src.presentation.styles import get_date_group_styles
 
 
 class DateGroupWidget(QFrame):
@@ -50,8 +52,6 @@ class DateGroupWidget(QFrame):
 
     def _setup_ui(self) -> None:
         """Set up the user interface components."""
-        self.setFrameStyle(QFrame.Shape.StyledPanel | QFrame.Shadow.Raised)
-
         # Main layout
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(0, 0, 0, 0)
@@ -64,6 +64,7 @@ class DateGroupWidget(QFrame):
 
         # Expand/collapse indicator
         self._indicator_label = QLabel("▶")
+        self._indicator_label.setObjectName("indicatorLabel")
         indicator_font = QFont()
         indicator_font.setPointSize(10)
         self._indicator_label.setFont(indicator_font)
@@ -73,6 +74,7 @@ class DateGroupWidget(QFrame):
         # Date label
         date_str = self._date_value.strftime("%d %B %Y")
         self._date_label = QLabel(date_str)
+        self._date_label.setObjectName("dateHeaderTitle")
         date_font = QFont()
         date_font.setPointSize(12)
         date_font.setWeight(QFont.Weight.Bold)
@@ -85,6 +87,7 @@ class DateGroupWidget(QFrame):
 
         # Task count label
         self._count_label = QLabel("(0 tasks)")
+        self._count_label.setObjectName("dateHeaderCount")
         count_font = QFont()
         count_font.setPointSize(10)
         self._count_label.setFont(count_font)
@@ -107,19 +110,8 @@ class DateGroupWidget(QFrame):
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern appearance."""
-        self.setStyleSheet("""
-            DateGroupWidget {
-                background-color: #2b2b2b;
-                border-radius: 6px;
-                border: 1px solid #3e3e3e;
-            }
-            DateGroupWidget:hover {
-                border: 1px solid #505050;
-            }
-            QLabel {
-                color: #e0e0e0;
-            }
-        """)
+        self._indicator_label.setObjectName("indicatorLabel")
+        self.setStyleSheet(get_date_group_styles())
 
     def _on_header_clicked(self, event) -> None:
         """Handle header click to toggle expansion.

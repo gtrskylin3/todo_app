@@ -18,6 +18,7 @@ from PyQt6.QtWidgets import (
 
 from src.application.task_service import TaskService, TaskServiceResult
 from src.config.settings import AppConfig
+from src.presentation.styles import get_global_styles
 from src.presentation.views.active_tasks_view import ActiveTasksView
 from src.presentation.views.completed_tasks_view import CompletedTasksView
 from src.presentation.widgets.edit_task_dialog import EditTaskDialog
@@ -91,33 +92,7 @@ class MainWindow(QMainWindow):
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern dark theme."""
-        self.setStyleSheet("""
-            QMainWindow {
-                background-color: #1e1e1e;
-            }
-            QTabWidget::pane {
-                border: none;
-                background-color: #1e1e1e;
-            }
-            QTabBar::tab {
-                background-color: #2b2b2b;
-                color: #a0a0a0;
-                padding: 12px 24px;
-                border: none;
-                border-bottom: 2px solid transparent;
-                font-size: 13px;
-                font-weight: bold;
-            }
-            QTabBar::tab:selected {
-                background-color: #1e1e1e;
-                color: #e0e0e0;
-                border-bottom: 2px solid #4a9eff;
-            }
-            QTabBar::tab:hover:!selected {
-                background-color: #353535;
-                color: #c0c0c0;
-            }
-        """)
+        self.setStyleSheet(get_global_styles())
 
     def _load_initial_data(self) -> None:
         """Load initial task data from the database."""

@@ -11,6 +11,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QLabel, QScrollArea, QVBoxLayout, QWidget
 
 from src.domain.task_entity import TaskEntity
+from src.presentation.styles import get_global_styles
 from src.presentation.widgets.date_group_widget import DateGroupWidget
 from src.presentation.widgets.task_item_widget import TaskItemWidget
 
@@ -50,6 +51,7 @@ class CompletedTasksView(QWidget):
 
         # Header
         header_label = QLabel("Completed Tasks")
+        header_label.setObjectName("headerLabel")
         header_font = QFont()
         header_font.setPointSize(18)
         header_font.setWeight(QFont.Weight.Bold)
@@ -82,34 +84,7 @@ class CompletedTasksView(QWidget):
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern appearance."""
-        self.setStyleSheet("""
-            QWidget {
-                background-color: #1e1e1e;
-            }
-            QLabel {
-                color: #e0e0e0;
-            }
-            QScrollArea {
-                border: none;
-                background-color: #1e1e1e;
-            }
-            QScrollBar:vertical {
-                background-color: #2b2b2b;
-                width: 10px;
-                border-radius: 5px;
-            }
-            QScrollBar::handle:vertical {
-                background-color: #4a4a4a;
-                border-radius: 5px;
-                min-height: 20px;
-            }
-            QScrollBar::handle:vertical:hover {
-                background-color: #5a5a5a;
-            }
-            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-                height: 0px;
-            }
-        """)
+        self.setStyleSheet(get_global_styles())
 
     def clear_all(self) -> None:
         """Clear all date groups and task widgets."""
@@ -165,17 +140,15 @@ class CompletedTasksView(QWidget):
         # Get or create date group
         group = self._get_or_create_date_group(completion_date)
 
-        # Create task widget
+        # Create task widget (hide checkbox for completed view)
         task_widget = TaskItemWidget(
             task_id=task.id,  # type: ignore
             title=task.title,
             description=task.description,
             created_at=task.created_at,
-            completed_at=task.completed_at
+            completed_at=task.completed_at,
+            show_checkbox=False
         )
-
-        # Disable checkbox click for completed tasks (use Reopen button instead)
-        task_widget._checkbox.setEnabled(False)
 
         # Connect signals
         task_widget.reopen_requested.connect(self.reopen_requested.emit)
@@ -232,10 +205,10 @@ class CompletedTasksView(QWidget):
                         title=task.title,
                         description=task.description,
                         created_at=task.created_at,
-                        completed_at=task.completed_at
+                        completed_at=task.completed_at,
+                        show_checkbox=False
                     )
 
-                    task_widget._checkbox.setEnabled(False)
                     task_widget.reopen_requested.connect(self.reopen_requested.emit)
 
                     group.add_task_widget(task_widget)

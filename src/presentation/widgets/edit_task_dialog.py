@@ -17,6 +17,8 @@ from PyQt6.QtWidgets import (
     QVBoxLayout,
 )
 
+from src.presentation.styles import get_edit_dialog_styles
+
 
 class EditTaskDialog(QDialog):
     """Modal dialog for editing task details.
@@ -85,6 +87,7 @@ class EditTaskDialog(QDialog):
         button_layout.setSpacing(8)
 
         cancel_btn = QPushButton("Cancel")
+        cancel_btn.setObjectName("cancelButton")
         cancel_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         cancel_btn.clicked.connect(self.reject)
         cancel_btn.setFixedWidth(80)
@@ -95,6 +98,7 @@ class EditTaskDialog(QDialog):
         ))
 
         save_btn = QPushButton("Save")
+        save_btn.setObjectName("saveButton")
         save_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         save_btn.clicked.connect(self._on_save_clicked)
         save_btn.setFixedWidth(80)
@@ -104,52 +108,7 @@ class EditTaskDialog(QDialog):
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern appearance."""
-        self.setStyleSheet("""
-            QDialog {
-                background-color: #2b2b2b;
-            }
-            QLabel {
-                color: #e0e0e0;
-                font-size: 11px;
-            }
-            QLineEdit {
-                background-color: #3e3e3e;
-                border: 1px solid #505050;
-                border-radius: 4px;
-                padding: 8px;
-                color: #e0e0e0;
-                font-size: 11px;
-            }
-            QLineEdit:focus {
-                border: 1px solid #4a9eff;
-            }
-            QTextEdit {
-                background-color: #3e3e3e;
-                border: 1px solid #505050;
-                border-radius: 4px;
-                padding: 8px;
-                color: #e0e0e0;
-                font-size: 10px;
-            }
-            QTextEdit:focus {
-                border: 1px solid #4a9eff;
-            }
-            QPushButton {
-                background-color: #3e3e3e;
-                border: 1px solid #505050;
-                border-radius: 4px;
-                padding: 8px 16px;
-                color: #e0e0e0;
-                font-size: 11px;
-            }
-            QPushButton:hover {
-                background-color: #4a4a4a;
-                border: 1px solid #6a6a6a;
-            }
-            QPushButton:pressed {
-                background-color: #303030;
-            }
-        """)
+        self.setStyleSheet(get_edit_dialog_styles())
 
     def _on_save_clicked(self) -> None:
         """Handle save button click."""

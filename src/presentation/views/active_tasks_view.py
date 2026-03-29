@@ -18,6 +18,7 @@ from PyQt6.QtWidgets import (
 
 from src.application.task_service import TaskServiceResult
 from src.domain.task_entity import TaskEntity
+from src.presentation.styles import get_global_styles
 from src.presentation.widgets.task_item_widget import TaskItemWidget
 
 
@@ -61,6 +62,7 @@ class ActiveTasksView(QWidget):
 
         # Header
         header_label = QLabel("Active Tasks")
+        header_label.setObjectName("headerLabel")
         header_font = QFont()
         header_font.setPointSize(18)
         header_font.setWeight(QFont.Weight.Bold)
@@ -75,13 +77,51 @@ class ActiveTasksView(QWidget):
         self._add_input.setPlaceholderText("Add a new task... Press Enter to create")
         self._add_input.setFixedHeight(40)
         self._add_input.returnPressed.connect(self._on_add_pressed)
+        self._add_input.setStyleSheet("""
+            QLineEdit {
+                background-color: #1A1A1A;
+                border: 1px solid #6B6B6B;
+                border-radius: 8px;
+                padding: 12px 16px;
+                color: #FFFFFF;
+                font-size: 13px;
+            }
+            QLineEdit:focus {
+                border: 2px solid #8B5CF6;
+                background-color: #1A1A1A;
+            }
+            QLineEdit::placeholder {
+                color: #A0A0A0;
+            }
+        """)
         add_layout.addWidget(self._add_input, 1)
 
         add_btn = QPushButton("Add")
+        add_btn.setObjectName("addButton")
         add_btn.setCursor(Qt.CursorShape.PointingHandCursor)
         add_btn.setFixedHeight(40)
         add_btn.setFixedWidth(80)
         add_btn.clicked.connect(self._on_add_clicked)
+        add_btn.setStyleSheet("""
+            QPushButton#addButton {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #8B5CF6, stop:1 #7C3AED);
+                border: none;
+                border-radius: 8px;
+                padding: 12px 24px;
+                color: #FFFFFF;
+                font-size: 13px;
+                font-weight: 600;
+            }
+            QPushButton#addButton:hover {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #9B6CF6, stop:1 #8C4AED);
+            }
+            QPushButton#addButton:pressed {
+                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #7C3AED, stop:1 #6D28D9);
+            }
+        """)
         add_layout.addWidget(add_btn)
 
         layout.addLayout(add_layout)
@@ -104,6 +144,14 @@ class ActiveTasksView(QWidget):
 
         # Empty state label
         self._empty_label = QLabel("No active tasks. Add one above!")
+        self._empty_label.setObjectName("emptyStateLabel")
+        self._empty_label.setStyleSheet("""
+            QLabel#emptyStateLabel {
+                color: #A0A0A0;
+                font-size: 13px;
+                background-color: transparent;
+            }
+        """)
         empty_font = QFont()
         empty_font.setPointSize(11)
         self._empty_label.setFont(empty_font)
@@ -112,60 +160,7 @@ class ActiveTasksView(QWidget):
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern appearance."""
-        self.setStyleSheet("""
-            QWidget {
-                background-color: #1e1e1e;
-            }
-            QLabel {
-                color: #e0e0e0;
-            }
-            QLineEdit {
-                background-color: #2b2b2b;
-                border: 1px solid #3e3e3e;
-                border-radius: 6px;
-                padding: 8px 12px;
-                color: #e0e0e0;
-                font-size: 12px;
-            }
-            QLineEdit:focus {
-                border: 1px solid #4a9eff;
-            }
-            QPushButton {
-                background-color: #4a9eff;
-                border: none;
-                border-radius: 6px;
-                padding: 8px 16px;
-                color: #ffffff;
-                font-size: 12px;
-                font-weight: bold;
-            }
-            QPushButton:hover {
-                background-color: #5aafff;
-            }
-            QPushButton:pressed {
-                background-color: #3a8eef;
-            }
-            QScrollArea {
-                border: none;
-                background-color: #1e1e1e;
-            }
-            QScrollBar:vertical {
-                background-color: #2b2b2b;
-                width: 10px;
-                border-radius: 5px;
-            }
-            QScrollBar::handle:vertical {
-                background-color: #4a4a4a;
-                border-radius: 5px;
-                min-height: 20px;
-            }
-            QScrollBar::handle:vertical:hover {
-                background-color: #5a5a5a;
-            }
-            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
-                height: 0px;
-            }
-        """)
+        self.setStyleSheet(get_global_styles())
 
     def _on_add_pressed(self) -> None:
         """Handle Enter key press in add input."""
