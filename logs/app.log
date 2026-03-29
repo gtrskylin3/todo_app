@@ -1,0 +1,8 @@
+2026-03-30 01:52:19,063 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 01:52:19,064 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 01:52:19,064 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 01:57:22,693 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 01:57:22,693 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 01:57:22,694 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 01:57:22,817 - todo_app - INFO - Application started successfully
+2026-03-30 01:59:04,922 - todo_app - INFO - Application shutting down
