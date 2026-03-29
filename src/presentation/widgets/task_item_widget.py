@@ -160,7 +160,7 @@ class TaskItemWidget(QFrame):
             delete_btn = QPushButton("Remove")
             delete_btn.setCursor(Qt.CursorShape.PointingHandCursor)
             delete_btn.clicked.connect(self._on_delete_clicked)
-            delete_btn.setFixedWidth(70)
+            delete_btn.setFixedWidth(80)
             button_layout.addWidget(delete_btn)
 
         button_layout.addSpacerItem(QSpacerItem(
