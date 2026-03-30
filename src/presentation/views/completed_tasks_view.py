@@ -11,7 +11,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QLabel, QScrollArea, QVBoxLayout, QWidget
 
 from src.domain.task_entity import TaskEntity
-from src.presentation.styles import get_global_styles
+from src.presentation.styles import get_completed_tasks_view_styles
 from src.presentation.widgets.date_group_widget import DateGroupWidget
 from src.presentation.widgets.task_item_widget import TaskItemWidget
 
@@ -36,6 +36,7 @@ class CompletedTasksView(QWidget):
             parent: Parent widget.
         """
         super().__init__(parent)
+        self.setObjectName("completedTasksView")
 
         self._date_groups: dict[datetime, DateGroupWidget] = {}
         self._task_widgets: dict[int, TaskItemWidget] = {}
@@ -84,7 +85,7 @@ class CompletedTasksView(QWidget):
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern appearance."""
-        self.setStyleSheet(get_global_styles())
+        self.setStyleSheet(get_completed_tasks_view_styles())
 
     def clear_all(self) -> None:
         """Clear all date groups and task widgets."""
@@ -223,15 +224,35 @@ class CompletedTasksView(QWidget):
 
     def handle_reopen(self, task_id: int) -> None:
         """Handle reopening a task (remove from completed view).
-        
+
         Args:
             task_id: ID of the task being reopened.
         """
-        if task_id in self._task_widgets:
-            widget = self._task_widgets.pop(task_id)
-            widget.deleteLater()
+        if task_id not in self._task_widgets:
+            return
+            
+        # Get the task widget to find its completion date
+        task_widget = self._task_widgets[task_id]
+        completed_at = task_widget._completed_at
+        
+        # Remove from task widgets dict
+        del self._task_widgets[task_id]
+        
+        # Find and update the date group
+        if completed_at:
+            completion_date = completed_at.date()
+            for date_value, group in self._date_groups.items():
+                if date_value.date() == completion_date:
+                    group.remove_task_widget(task_id)
+                    # Remove empty group
+                    if group._content_layout.count() == 0:
+                        group.deleteLater()
+                        del self._date_groups[date_value]
+                    break
+        
+        # Remove widget
+        task_widget.deleteLater()
 
-            # Update group counts and potentially remove empty groups
-            # This is a simplified version - could be improved
-            if not self._task_widgets and self._empty_label:
-                self._empty_label.setVisible(True)
+        # Show empty state if no tasks
+        if not self._task_widgets and self._empty_label:
+            self._empty_label.setVisible(True)

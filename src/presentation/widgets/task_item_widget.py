@@ -20,8 +20,6 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from src.presentation.styles import get_task_item_styles
-
 
 class TaskItemWidget(QFrame):
     """Custom widget for displaying a task with Markdown-style checkbox.
@@ -67,8 +65,10 @@ class TaskItemWidget(QFrame):
         self._show_checkbox = show_checkbox
         self._is_expanded = False
 
+        # Set object name for styling
+        self.setObjectName("taskCard")
+
         self._setup_ui()
-        self._apply_styles()
 
     def _setup_ui(self) -> None:
         """Set up the user interface components."""
@@ -170,10 +170,6 @@ class TaskItemWidget(QFrame):
 
         self._expanded_widget.setVisible(False)
         main_layout.addWidget(self._expanded_widget)
-
-    def _apply_styles(self) -> None:
-        """Apply Qt Style Sheets for modern appearance."""
-        self.setStyleSheet(get_task_item_styles())
 
     def _get_date_string(self) -> str:
         """Get the date string for display.

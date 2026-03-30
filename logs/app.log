@@ -144,3 +144,427 @@ NameError: name 'get_global_styles' is not defined
 2026-03-30 03:26:54,198 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
 2026-03-30 03:26:54,339 - todo_app - INFO - Application started successfully
 2026-03-30 03:27:25,372 - todo_app - INFO - Application shutting down
+2026-03-30 10:10:44,377 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 10:10:44,377 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 10:10:44,377 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 10:10:46,127 - todo_app - INFO - Application started successfully
+2026-03-30 10:11:00,012 - todo_app - INFO - Application shutting down
+2026-03-30 10:11:28,424 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 10:11:28,424 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 10:11:28,424 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 10:11:29,393 - todo_app - INFO - Application started successfully
+2026-03-30 12:22:06,881 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:22:06,882 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:22:06,882 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:22:07,324 - todo_app - INFO - Application started successfully
+2026-03-30 12:22:47,964 - todo_app - INFO - Application shutting down
+2026-03-30 12:22:50,104 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:22:50,104 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:22:50,104 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:22:50,341 - todo_app - INFO - Application started successfully
+2026-03-30 12:22:59,622 - todo_app - INFO - Application shutting down
+2026-03-30 12:23:02,103 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:23:02,103 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:23:02,103 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:23:02,252 - todo_app - INFO - Application started successfully
+2026-03-30 12:23:04,060 - todo_app - INFO - Application shutting down
+2026-03-30 12:25:40,342 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:25:40,343 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:25:40,343 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:25:40,500 - todo_app - INFO - Application started successfully
+2026-03-30 12:25:46,462 - todo_app - INFO - Application shutting down
+2026-03-30 12:26:55,293 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:26:55,293 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:26:55,293 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:26:55,446 - todo_app - INFO - Application started successfully
+2026-03-30 12:27:01,865 - todo_app - INFO - Application shutting down
+2026-03-30 12:27:50,887 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:27:50,887 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:27:50,887 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:29:24,429 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:29:24,429 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:29:24,429 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:29:24,594 - todo_app - INFO - Application started successfully
+2026-03-30 12:29:34,306 - todo_app - INFO - Application shutting down
+2026-03-30 12:29:36,679 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:29:36,679 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:29:36,679 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:29:36,872 - todo_app - INFO - Application started successfully
+2026-03-30 12:29:41,311 - todo_app - INFO - Application shutting down
+2026-03-30 12:30:45,976 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:30:45,976 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:30:45,976 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:30:46,159 - todo_app - INFO - Application started successfully
+2026-03-30 12:30:58,622 - todo_app - INFO - Application shutting down
+2026-03-30 12:31:31,729 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:31:31,729 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:31:31,730 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:31:31,883 - todo_app - INFO - Application started successfully
+2026-03-30 12:31:44,812 - todo_app - INFO - Application shutting down
+2026-03-30 12:31:46,821 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:31:46,822 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:31:46,822 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:31:46,980 - todo_app - INFO - Application started successfully
+2026-03-30 12:31:52,935 - todo_app - INFO - Application shutting down
+2026-03-30 12:33:20,942 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:33:20,943 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:33:20,943 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:33:21,102 - todo_app - INFO - Application started successfully
+2026-03-30 12:33:49,194 - todo_app - INFO - Application shutting down
+2026-03-30 12:33:51,236 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:33:51,236 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:33:51,237 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:33:51,390 - todo_app - INFO - Application started successfully
+2026-03-30 12:34:07,247 - todo_app - INFO - Application shutting down
+2026-03-30 12:35:55,744 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:35:55,744 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:35:55,745 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:35:55,898 - todo_app - INFO - Application started successfully
+2026-03-30 12:36:16,776 - todo_app - INFO - Application shutting down
+2026-03-30 12:36:29,404 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:36:29,404 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:36:29,405 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:36:29,578 - todo_app - INFO - Application started successfully
+2026-03-30 12:36:36,629 - todo_app - INFO - Application shutting down
+2026-03-30 12:36:38,253 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:36:38,253 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:36:38,254 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:36:38,406 - todo_app - INFO - Application started successfully
+2026-03-30 12:36:45,706 - todo_app - INFO - Application shutting down
+2026-03-30 12:38:09,442 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:38:09,442 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:38:09,442 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:38:09,606 - todo_app - INFO - Application started successfully
+2026-03-30 12:38:46,466 - todo_app - INFO - Application shutting down
+2026-03-30 12:40:29,201 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:40:29,201 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:40:29,201 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:40:29,439 - todo_app - INFO - Application started successfully
+2026-03-30 12:40:33,207 - todo_app - INFO - Application shutting down
+2026-03-30 12:40:41,006 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:40:41,006 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:40:41,006 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:40:41,179 - todo_app - INFO - Application started successfully
+2026-03-30 12:40:48,486 - todo_app - INFO - Application shutting down
+2026-03-30 12:41:05,191 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:41:05,191 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:41:05,191 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:41:05,365 - todo_app - INFO - Application started successfully
+2026-03-30 12:43:05,867 - todo_app - INFO - Application shutting down
+2026-03-30 12:44:46,311 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:44:46,311 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:44:46,311 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:44:46,486 - todo_app - INFO - Application started successfully
+2026-03-30 12:45:12,276 - todo_app - INFO - Application shutting down
+2026-03-30 12:45:34,830 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:45:34,830 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:45:34,830 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:45:35,005 - todo_app - INFO - Application started successfully
+2026-03-30 12:46:31,522 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:46:31,522 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:46:31,522 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:46:31,694 - todo_app - INFO - Application started successfully
+2026-03-30 12:46:43,098 - todo_app - INFO - Application shutting down
+2026-03-30 12:49:07,132 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:49:07,132 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:49:07,132 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:49:07,310 - todo_app - INFO - Application started successfully
+2026-03-30 12:49:49,754 - todo_app - INFO - Application shutting down
+2026-03-30 12:50:00,456 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:50:00,456 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:50:00,456 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:50:00,603 - todo_app - INFO - Application started successfully
+2026-03-30 12:53:01,326 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:53:01,326 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:53:01,326 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:53:01,500 - todo_app - INFO - Application started successfully
+2026-03-30 12:53:21,308 - todo_app - INFO - Application shutting down
+2026-03-30 12:59:29,876 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 12:59:29,876 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 12:59:29,876 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 12:59:30,050 - todo_app - INFO - Application started successfully
+2026-03-30 12:59:39,971 - todo_app - INFO - Application shutting down
+2026-03-30 13:04:01,172 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:04:01,172 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:04:01,172 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:04:01,206 - todo_app - ERROR - Application error: 'MainWindow' object has no attribute '_on_tab_changed'
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 59, in __init__
+    self._setup_ui()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 81, in _setup_ui
+    self._tab_widget.currentChanged.connect(self._on_tab_changed)
+                                            ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MainWindow' object has no attribute '_on_tab_changed'
+2026-03-30 13:04:01,213 - todo_app - INFO - Application shutting down
+2026-03-30 13:04:16,567 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:04:16,567 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:04:16,567 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:04:16,601 - todo_app - ERROR - Application error: 'MainWindow' object has no attribute '_on_tab_changed'
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 59, in __init__
+    self._setup_ui()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 81, in _setup_ui
+    self._tab_widget.currentChanged.connect(self._on_tab_changed)
+                                            ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'MainWindow' object has no attribute '_on_tab_changed'
+2026-03-30 13:04:16,610 - todo_app - INFO - Application shutting down
+2026-03-30 13:04:58,935 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:04:58,935 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:04:58,936 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:04:59,010 - todo_app - ERROR - Application error: name 'QLabel' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 59, in __init__
+    self._setup_ui()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 96, in _setup_ui
+    self._settings_view = self._create_settings_view()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 117, in _create_settings_view
+    title_label = QLabel("Settings")
+                  ^^^^^^
+NameError: name 'QLabel' is not defined
+2026-03-30 13:04:59,012 - todo_app - INFO - Application shutting down
+2026-03-30 13:06:04,280 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:06:04,281 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:06:04,281 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:06:04,371 - todo_app - ERROR - Application error: name 'QFont' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 60, in __init__
+    self._setup_ui()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 97, in _setup_ui
+    self._settings_view = self._create_settings_view()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 120, in _create_settings_view
+    title_font = QFont()
+                 ^^^^^
+NameError: name 'QFont' is not defined
+2026-03-30 13:06:04,373 - todo_app - INFO - Application shutting down
+2026-03-30 13:06:53,479 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:06:53,479 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:06:53,479 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:06:53,567 - todo_app - ERROR - Application error: name 'QGroupBox' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 60, in __init__
+    self._setup_ui()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 97, in _setup_ui
+    self._settings_view = self._create_settings_view()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 127, in _create_settings_view
+    appearance_group = QGroupBox("Appearance")
+                       ^^^^^^^^^
+NameError: name 'QGroupBox' is not defined
+2026-03-30 13:06:53,570 - todo_app - INFO - Application shutting down
+2026-03-30 13:07:40,604 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:07:40,604 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:07:40,605 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:07:40,693 - todo_app - ERROR - Application error: name 'QCheckBox' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 61, in __init__
+    self._setup_ui()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 98, in _setup_ui
+    self._settings_view = self._create_settings_view()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 133, in _create_settings_view
+    self._use_custom_bg_cb = QCheckBox("Use custom background image")
+                             ^^^^^^^^^
+NameError: name 'QCheckBox' is not defined
+2026-03-30 13:07:40,696 - todo_app - INFO - Application shutting down
+2026-03-30 13:07:49,470 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:07:49,470 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:07:49,470 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:07:49,558 - todo_app - ERROR - Application error: name 'QLineEdit' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 62, in __init__
+    self._setup_ui()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 99, in _setup_ui
+    self._settings_view = self._create_settings_view()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 143, in _create_settings_view
+    self._bg_image_input = QLineEdit()
+                           ^^^^^^^^^
+NameError: name 'QLineEdit' is not defined
+2026-03-30 13:07:49,561 - todo_app - INFO - Application shutting down
+2026-03-30 13:07:56,250 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:07:56,250 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:07:56,250 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:07:56,362 - todo_app - ERROR - Application error: name 'QSlider' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 63, in __init__
+    self._setup_ui()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 100, in _setup_ui
+    self._settings_view = self._create_settings_view()
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 163, in _create_settings_view
+    self._opacity_slider = QSlider(Qt.Orientation.Horizontal)
+                           ^^^^^^^
+NameError: name 'QSlider' is not defined
+2026-03-30 13:07:56,364 - todo_app - INFO - Application shutting down
+2026-03-30 13:08:03,988 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:08:03,988 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:08:03,988 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:08:04,183 - todo_app - INFO - Application started successfully
+2026-03-30 13:08:56,538 - todo_app - INFO - Application shutting down
+2026-03-30 13:09:09,258 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:09:09,259 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:09:09,259 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:09:09,406 - todo_app - INFO - Application started successfully
+2026-03-30 13:10:06,498 - todo_app - INFO - Application shutting down
+2026-03-30 13:20:36,449 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:20:36,450 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:20:36,450 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:20:36,862 - todo_app - ERROR - Application error: name 'get_active_tasks_view_styles' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 67, in __init__
+    self._apply_styles()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 261, in _apply_styles
+    self._active_view.setStyleSheet(get_active_tasks_view_styles(custom_background=use_custom_bg))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'get_active_tasks_view_styles' is not defined
+2026-03-30 13:20:36,864 - todo_app - INFO - Application shutting down
+2026-03-30 13:20:47,339 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:20:47,340 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:20:47,340 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:20:47,419 - todo_app - ERROR - Application error: name 'get_active_tasks_view_styles' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 67, in __init__
+    self._apply_styles()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 261, in _apply_styles
+    self._active_view.setStyleSheet(get_active_tasks_view_styles(custom_background=use_custom_bg))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'get_active_tasks_view_styles' is not defined
+2026-03-30 13:20:47,421 - todo_app - INFO - Application shutting down
+2026-03-30 13:21:00,501 - todo_app - INFO - Application shutting down
+2026-03-30 13:21:03,915 - todo_app - INFO - Application shutting down
+2026-03-30 13:21:07,331 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:21:07,331 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:21:07,331 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:21:07,414 - todo_app - ERROR - Application error: name 'get_active_tasks_view_styles' is not defined
+Traceback (most recent call last):
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\main.py", line 95, in main
+    window = MainWindow(task_service, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 67, in __init__
+    self._apply_styles()
+  File "C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\src\presentation\views\main_window.py", line 261, in _apply_styles
+    self._active_view.setStyleSheet(get_active_tasks_view_styles(custom_background=use_custom_bg))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+NameError: name 'get_active_tasks_view_styles' is not defined
+2026-03-30 13:21:07,415 - todo_app - INFO - Application shutting down
+2026-03-30 13:22:02,067 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:22:02,068 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:22:02,068 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:22:02,226 - todo_app - INFO - Application started successfully
+2026-03-30 13:28:18,972 - todo_app - INFO - Application shutting down
+2026-03-30 13:29:44,382 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:29:44,382 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:29:44,382 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:29:44,570 - todo_app - INFO - Application started successfully
+2026-03-30 13:33:15,505 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:33:15,506 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:33:15,506 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:33:15,715 - todo_app - INFO - Application started successfully
+2026-03-30 13:33:34,665 - todo_app - INFO - Application shutting down
+2026-03-30 13:34:13,932 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:34:13,933 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:34:13,933 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:34:14,113 - todo_app - INFO - Application started successfully
+2026-03-30 13:34:27,432 - todo_app - INFO - Application shutting down
+2026-03-30 13:36:19,154 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:36:19,154 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:36:19,154 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:36:19,330 - todo_app - INFO - Application started successfully
+2026-03-30 13:36:30,577 - todo_app - INFO - Application shutting down
+2026-03-30 13:41:41,628 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:41:41,628 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:41:41,629 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:41:41,785 - todo_app - INFO - Application started successfully
+2026-03-30 13:42:24,685 - todo_app - INFO - Application shutting down
+2026-03-30 13:45:29,032 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:45:29,032 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:45:29,032 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:45:29,194 - todo_app - INFO - Application started successfully
+2026-03-30 13:45:49,067 - todo_app - INFO - Application shutting down
+2026-03-30 13:47:53,075 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:47:53,076 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:47:53,076 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:47:53,229 - todo_app - INFO - Application started successfully
+2026-03-30 13:48:28,621 - todo_app - INFO - Application shutting down
+2026-03-30 13:53:11,741 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:53:11,741 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:53:11,741 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:53:11,901 - todo_app - INFO - Application started successfully
+2026-03-30 13:53:23,575 - todo_app - INFO - Application shutting down
+2026-03-30 13:59:47,196 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 13:59:47,197 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 13:59:47,197 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 13:59:47,324 - todo_app - INFO - Application started successfully
+2026-03-30 14:00:05,195 - todo_app - INFO - Application shutting down
+2026-03-30 14:01:51,768 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 14:01:51,769 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 14:01:51,769 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 14:01:52,247 - todo_app - INFO - Application started successfully
+2026-03-30 14:03:03,536 - todo_app - INFO - Application shutting down
+2026-03-30 14:05:04,444 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 14:05:04,444 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 14:05:04,444 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 14:05:04,619 - todo_app - INFO - Application started successfully
+2026-03-30 14:05:22,001 - todo_app - INFO - Application shutting down
+2026-03-30 14:05:38,834 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 14:05:38,834 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 14:05:38,834 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 14:05:38,998 - todo_app - INFO - Application started successfully
+2026-03-30 14:05:45,319 - todo_app - INFO - Application shutting down
+2026-03-30 14:06:31,760 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 14:06:31,760 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 14:06:31,760 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 14:06:31,930 - todo_app - INFO - Application started successfully
+2026-03-30 14:06:34,488 - todo_app - INFO - Application shutting down
+2026-03-30 14:06:39,041 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 14:06:39,041 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 14:06:39,041 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 14:06:39,215 - todo_app - INFO - Application started successfully
+2026-03-30 14:06:49,061 - todo_app - INFO - Application shutting down
+2026-03-30 14:07:47,424 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 14:07:47,424 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 14:07:47,424 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 14:07:47,577 - todo_app - INFO - Application started successfully
+2026-03-30 14:07:49,783 - todo_app - INFO - Application shutting down
+2026-03-30 14:08:58,411 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 14:08:58,411 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 14:08:58,411 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 14:08:58,580 - todo_app - INFO - Application started successfully
+2026-03-30 14:09:19,936 - todo_app - INFO - Application shutting down
+2026-03-30 14:11:51,518 - todo_app - INFO - Starting TODO Application v1.0.0
+2026-03-30 14:11:51,518 - todo_app - INFO - Database path: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\data\todo.db
+2026-03-30 14:11:51,519 - todo_app - INFO - Log file: C:\programming\web_dev\kompege\00\ege_fullfocus_razebalovo\todo_app\logs\app.log
+2026-03-30 14:11:51,715 - todo_app - INFO - Application started successfully
+2026-03-30 14:11:55,991 - todo_app - INFO - Application shutting down

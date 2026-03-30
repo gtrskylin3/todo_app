@@ -18,8 +18,6 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
-from src.presentation.styles import get_date_group_styles
-
 
 class DateGroupWidget(QFrame):
     """Custom widget for grouping tasks by completion date.
@@ -37,18 +35,18 @@ class DateGroupWidget(QFrame):
 
     def __init__(self, date_value: datetime, parent: QWidget | None = None):
         """Initialize the date group widget.
-        
+
         Args:
             date_value: The date for this group.
             parent: Parent widget.
         """
         super().__init__(parent)
+        self.setObjectName("dateGroupWidget")
 
         self._date_value = date_value
         self._is_expanded = False
 
         self._setup_ui()
-        self._apply_styles()
 
     def _setup_ui(self) -> None:
         """Set up the user interface components."""
@@ -108,11 +106,6 @@ class DateGroupWidget(QFrame):
         self._content_widget.setVisible(False)
         main_layout.addWidget(self._content_widget)
 
-    def _apply_styles(self) -> None:
-        """Apply Qt Style Sheets for modern appearance."""
-        self._indicator_label.setObjectName("indicatorLabel")
-        self.setStyleSheet(get_date_group_styles())
-
     def _on_header_clicked(self, event) -> None:
         """Handle header click to toggle expansion.
         
@@ -144,6 +137,24 @@ class DateGroupWidget(QFrame):
             item = self._content_layout.takeAt(0)
             if item.widget():
                 item.widget().deleteLater()
+
+    def remove_task_widget(self, task_id: int) -> None:
+        """Remove a specific task widget by ID.
+
+        Args:
+            task_id: ID of the task to remove.
+        """
+        for i in range(self._content_layout.count()):
+            item = self._content_layout.itemAt(i)
+            if item and item.widget():
+                widget = item.widget()
+                if hasattr(widget, '_task_id') and widget._task_id == task_id:
+                    widget.deleteLater()
+                    self._content_layout.removeWidget(widget)
+                    # Update count
+                    new_count = self._content_layout.count()
+                    self.set_task_count(new_count)
+                    break
 
     def set_task_count(self, count: int) -> None:
         """Set the task count display.

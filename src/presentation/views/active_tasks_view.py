@@ -18,7 +18,7 @@ from PyQt6.QtWidgets import (
 
 from src.application.task_service import TaskServiceResult
 from src.domain.task_entity import TaskEntity
-from src.presentation.styles import get_global_styles
+from src.presentation.styles import get_active_tasks_view_styles
 from src.presentation.widgets.task_item_widget import TaskItemWidget
 
 
@@ -43,11 +43,12 @@ class ActiveTasksView(QWidget):
 
     def __init__(self, parent: QWidget | None = None):
         """Initialize the active tasks view.
-        
+
         Args:
             parent: Parent widget.
         """
         super().__init__(parent)
+        self.setObjectName("activeTasksView")
 
         self._task_widgets: dict[int, TaskItemWidget] = {}
 
@@ -74,26 +75,10 @@ class ActiveTasksView(QWidget):
         add_layout.setSpacing(8)
 
         self._add_input = QLineEdit()
+        self._add_input.setObjectName("taskInput")
         self._add_input.setPlaceholderText("Add a new task... Press Enter to create")
         self._add_input.setFixedHeight(40)
         self._add_input.returnPressed.connect(self._on_add_pressed)
-        self._add_input.setStyleSheet("""
-            QLineEdit {
-                background-color: #1A1A1A;
-                border: 1px solid #6B6B6B;
-                border-radius: 8px;
-                padding: 12px 16px;
-                color: #FFFFFF;
-                font-size: 13px;
-            }
-            QLineEdit:focus {
-                border: 2px solid #8B5CF6;
-                background-color: #1A1A1A;
-            }
-            QLineEdit::placeholder {
-                color: #A0A0A0;
-            }
-        """)
         add_layout.addWidget(self._add_input, 1)
 
         add_btn = QPushButton("Add")
@@ -102,26 +87,6 @@ class ActiveTasksView(QWidget):
         add_btn.setFixedHeight(40)
         add_btn.setFixedWidth(80)
         add_btn.clicked.connect(self._on_add_clicked)
-        add_btn.setStyleSheet("""
-            QPushButton#addButton {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #8B5CF6, stop:1 #7C3AED);
-                border: none;
-                border-radius: 8px;
-                padding: 12px 24px;
-                color: #FFFFFF;
-                font-size: 13px;
-                font-weight: 600;
-            }
-            QPushButton#addButton:hover {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #9B6CF6, stop:1 #8C4AED);
-            }
-            QPushButton#addButton:pressed {
-                background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
-                    stop:0 #7C3AED, stop:1 #6D28D9);
-            }
-        """)
         add_layout.addWidget(add_btn)
 
         layout.addLayout(add_layout)
@@ -145,13 +110,6 @@ class ActiveTasksView(QWidget):
         # Empty state label
         self._empty_label = QLabel("No active tasks. Add one above!")
         self._empty_label.setObjectName("emptyStateLabel")
-        self._empty_label.setStyleSheet("""
-            QLabel#emptyStateLabel {
-                color: #A0A0A0;
-                font-size: 13px;
-                background-color: transparent;
-            }
-        """)
         empty_font = QFont()
         empty_font.setPointSize(11)
         self._empty_label.setFont(empty_font)
@@ -160,7 +118,7 @@ class ActiveTasksView(QWidget):
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern appearance."""
-        self.setStyleSheet(get_global_styles())
+        self.setStyleSheet(get_active_tasks_view_styles())
 
     def _on_add_pressed(self) -> None:
         """Handle Enter key press in add input."""

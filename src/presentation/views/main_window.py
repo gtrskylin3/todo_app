@@ -5,12 +5,22 @@ and handles the application logic with background threading.
 """
 
 import logging
+import re
 
 from PyQt6.QtCore import Qt
-from PyQt6.QtGui import QCloseEvent
+from PyQt6.QtGui import QCloseEvent, QFont, QPixmap, QPalette
 from PyQt6.QtWidgets import (
+    QCheckBox,
+    QDialog,
+    QFileDialog,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
     QMainWindow,
     QMessageBox,
+    QPushButton,
+    QSlider,
     QTabWidget,
     QVBoxLayout,
     QWidget,
@@ -18,11 +28,12 @@ from PyQt6.QtWidgets import (
 
 from src.application.task_service import TaskService, TaskServiceResult
 from src.config.settings import AppConfig
-from src.presentation.styles import get_global_styles
+from src.presentation.styles import get_active_tasks_view_styles, get_completed_tasks_view_styles, get_global_styles
 from src.presentation.views.active_tasks_view import ActiveTasksView
 from src.presentation.views.completed_tasks_view import CompletedTasksView
 from src.presentation.widgets.edit_task_dialog import EditTaskDialog
 from src.presentation.workers.db_worker import DatabaseWorker
+from src.settings import SettingsManager
 
 logger = logging.getLogger(__name__)
 
@@ -50,9 +61,12 @@ class MainWindow(QMainWindow):
         self._task_service = task_service
         self._config = config
         self._workers: list[DatabaseWorker] = []  # Track all workers
+        self._settings_manager = SettingsManager()
+        self._previous_tab_index = 0  # Track previous tab for settings
 
         self._setup_ui()
         self._apply_styles()
+        self._apply_appearance_settings()  # Apply saved settings on startup
         self._load_initial_data()
 
     def _setup_ui(self) -> None:
@@ -60,18 +74,25 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self._config.app_name)
         self.setMinimumSize(600, 700)
 
-        # Central widget
+        # Central widget - must be transparent for custom background
         central_widget = QWidget()
+        central_widget.setObjectName("centralWidget")
         self.setCentralWidget(central_widget)
 
         # Main layout
-        layout = QVBoxLayout(central_widget)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(0)
+        main_layout = QVBoxLayout(central_widget)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+        main_layout.setSpacing(0)
 
-        # Tab widget
+        # Header with tab buttons
+        header_widget = self._create_header()
+        main_layout.addWidget(header_widget)
+
+        # Tab widget - hide default tab bar since we use custom header
         self._tab_widget = QTabWidget()
         self._tab_widget.setDocumentMode(True)
+        self._tab_widget.tabBar().setVisible(False)
+        self._tab_widget.currentChanged.connect(self._on_tab_changed)
 
         # Active tasks view
         self._active_view = ActiveTasksView()
@@ -85,14 +106,252 @@ class MainWindow(QMainWindow):
         self._completed_view = CompletedTasksView()
         self._completed_view.reopen_requested.connect(self._on_reopen_task)
 
+        # Settings view
+        self._settings_view = self._create_settings_view()
+
         self._tab_widget.addTab(self._active_view, "Active")
         self._tab_widget.addTab(self._completed_view, "Completed")
+        self._tab_widget.addTab(self._settings_view, "Settings")
 
-        layout.addWidget(self._tab_widget)
+        main_layout.addWidget(self._tab_widget, 1)
+
+    def _create_header(self) -> QWidget:
+        """Create the header widget with tab buttons.
+
+        Returns:
+            QWidget: Header widget with navigation buttons.
+        """
+        header = QWidget()
+        header.setObjectName("headerWidget")
+        layout = QHBoxLayout(header)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setSpacing(0)
+
+        # Active button
+        self._active_btn = QPushButton("Active")
+        self._active_btn.setObjectName("headerButton")
+        self._active_btn.setCheckable(True)
+        self._active_btn.setChecked(True)
+        self._active_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._active_btn.clicked.connect(lambda: self._on_header_button_clicked(0))
+        layout.addWidget(self._active_btn)
+
+        # Completed button
+        self._completed_btn = QPushButton("Completed")
+        self._completed_btn.setObjectName("headerButton")
+        self._completed_btn.setCheckable(True)
+        self._completed_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._completed_btn.clicked.connect(lambda: self._on_header_button_clicked(1))
+        layout.addWidget(self._completed_btn)
+
+        # Settings button
+        self._settings_btn = QPushButton("Settings")
+        self._settings_btn.setObjectName("headerButton")
+        self._settings_btn.setCheckable(True)
+        self._settings_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._settings_btn.clicked.connect(lambda: self._on_header_button_clicked(2))
+        layout.addWidget(self._settings_btn)
+
+        return header
+
+    def _on_header_button_clicked(self, index: int) -> None:
+        """Handle header button click.
+
+        Args:
+            index: Index of the button (0=Active, 1=Completed, 2=Settings).
+        """
+        self._tab_widget.setCurrentIndex(index)
+        # Update button states
+        self._active_btn.setChecked(index == 0)
+        self._completed_btn.setChecked(index == 1)
+        self._settings_btn.setChecked(index == 2)
+    
+    def _create_settings_view(self) -> QWidget:
+        """Create the settings view widget.
+        
+        Returns:
+            QWidget: Settings view widget.
+        """
+        widget = QWidget()
+        widget.setObjectName("settingsView")
+        layout = QVBoxLayout(widget)
+        layout.setContentsMargins(20, 20, 20, 20)
+        layout.setSpacing(20)
+        
+        # Title
+        title_label = QLabel("Settings")
+        title_label.setObjectName("headerLabel")
+        title_font = QFont()
+        title_font.setPointSize(20)
+        title_font.setWeight(QFont.Weight.Bold)
+        title_label.setFont(title_font)
+        layout.addWidget(title_label)
+        
+        # Appearance group
+        appearance_group = QGroupBox("Appearance")
+        appearance_layout = QVBoxLayout(appearance_group)
+        appearance_layout.setSpacing(16)
+        
+        # Custom background checkbox
+        self._use_custom_bg_cb = QCheckBox("Use custom background image")
+        self._use_custom_bg_cb.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._use_custom_bg_cb.stateChanged.connect(self._on_use_custom_bg_changed)
+        appearance_layout.addWidget(self._use_custom_bg_cb)
+        
+        # Background image path
+        path_layout = QHBoxLayout()
+        path_layout.setSpacing(8)
+        
+        self._bg_image_input = QLineEdit()
+        self._bg_image_input.setPlaceholderText("Select an image file...")
+        self._bg_image_input.setReadOnly(True)
+        path_layout.addWidget(self._bg_image_input)
+        
+        browse_btn = QPushButton("Browse...")
+        browse_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        browse_btn.setFixedWidth(80)
+        browse_btn.clicked.connect(self._on_browse_clicked)
+        path_layout.addWidget(browse_btn)
+        
+        appearance_layout.addLayout(path_layout)
+        layout.addWidget(appearance_group)
+        
+        # Opacity group
+        opacity_group = QGroupBox("Window Opacity")
+        opacity_layout = QVBoxLayout(opacity_group)
+        opacity_layout.setSpacing(12)
+        
+        self._opacity_slider = QSlider(Qt.Orientation.Horizontal)
+        self._opacity_slider.setMinimum(50)
+        self._opacity_slider.setMaximum(100)
+        self._opacity_slider.setSingleStep(5)
+        self._opacity_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self._opacity_slider.setTickInterval(10)
+        self._opacity_slider.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._opacity_slider.valueChanged.connect(self._on_opacity_changed)
+        opacity_layout.addWidget(self._opacity_slider)
+        
+        self._opacity_label = QLabel("100%")
+        self._opacity_label.setAlignment(Qt.AlignmentFlag.AlignRight)
+        opacity_layout.addWidget(self._opacity_label)
+        
+        layout.addWidget(opacity_group)
+
+        # Background overlay group
+        overlay_group = QGroupBox("Background Overlay Darkness")
+        overlay_layout = QVBoxLayout(overlay_group)
+        overlay_layout.setSpacing(12)
+
+        self._overlay_slider = QSlider(Qt.Orientation.Horizontal)
+        self._overlay_slider.setMinimum(0)
+        self._overlay_slider.setMaximum(100)
+        self._overlay_slider.setSingleStep(5)
+        self._overlay_slider.setTickPosition(QSlider.TickPosition.TicksBelow)
+        self._overlay_slider.setTickInterval(10)
+        self._overlay_slider.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._overlay_slider.valueChanged.connect(self._on_overlay_changed)
+        overlay_layout.addWidget(self._overlay_slider)
+
+        self._overlay_label = QLabel("60%")
+        self._overlay_label.setAlignment(Qt.AlignmentFlag.AlignRight)
+        overlay_layout.addWidget(self._overlay_label)
+
+        layout.addWidget(overlay_group)
+        layout.addStretch()
+        
+        # Save button
+        save_btn = QPushButton("Save Settings")
+        save_btn.setObjectName("saveButton")
+        save_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        save_btn.setFixedHeight(40)
+        save_btn.clicked.connect(self._on_save_settings_clicked)
+        layout.addWidget(save_btn)
+        
+        return widget
+
+    def _on_tab_changed(self, index: int) -> None:
+        """Handle tab change event.
+        
+        Args:
+            index: Index of the selected tab.
+        """
+        if index == 2:  # Settings tab
+            # Load current settings into UI
+            self._load_settings_into_ui()
+
+    def _load_settings_into_ui(self) -> None:
+        """Load current settings into settings view UI controls."""
+        settings = self._settings_manager.settings.appearance
+
+        self._use_custom_bg_cb.setChecked(settings.use_custom_background)
+        self._bg_image_input.setText(settings.background_image)
+        self._bg_image_input.setEnabled(settings.use_custom_background)
+
+        opacity_percent = int(settings.opacity * 100)
+        self._opacity_slider.setValue(opacity_percent)
+        self._opacity_label.setText(f"{opacity_percent}%")
+
+        overlay_percent = int(settings.background_overlay_opacity * 100)
+        self._overlay_slider.setValue(overlay_percent)
+        self._overlay_label.setText(f"{overlay_percent}%")
+
+    def _on_use_custom_bg_changed(self, state: int) -> None:
+        """Handle custom background checkbox change."""
+        self._bg_image_input.setEnabled(state == Qt.CheckState.Checked)
+
+    def _on_browse_clicked(self) -> None:
+        """Handle browse button click."""
+        from PyQt6.QtWidgets import QFileDialog
+
+        file_path, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select Background Image",
+            "",
+            "Images (*.png *.jpg *.jpeg *.bmp *.gif)"
+        )
+
+        if file_path:
+            self._bg_image_input.setText(file_path)
+
+    def _on_opacity_changed(self, value: int) -> None:
+        """Handle opacity slider change."""
+        self._opacity_label.setText(f"{value}%")
+
+    def _on_overlay_changed(self, value: int) -> None:
+        """Handle overlay slider change."""
+        self._overlay_label.setText(f"{value}%")
+
+    def _on_save_settings_clicked(self) -> None:
+        """Handle save settings button click."""
+        # Save appearance settings
+        self._settings_manager.settings.appearance.use_custom_background = self._use_custom_bg_cb.isChecked()
+        self._settings_manager.settings.appearance.background_image = self._bg_image_input.text()
+        self._settings_manager.settings.appearance.opacity = self._opacity_slider.value() / 100.0
+        self._settings_manager.settings.appearance.background_overlay_opacity = self._overlay_slider.value() / 100.0
+        self._settings_manager.save()
+        
+        # Apply settings immediately
+        self._apply_appearance_settings()
+        
+        # Show confirmation
+        QMessageBox.information(
+            self,
+            "Settings Saved",
+            "Settings have been saved successfully."
+        )
 
     def _apply_styles(self) -> None:
         """Apply Qt Style Sheets for modern dark theme."""
-        self.setStyleSheet(get_global_styles())
+        settings = self._settings_manager.settings.appearance
+        use_custom_bg = settings.use_custom_background and settings.background_image
+
+        # Only apply base styles if not using custom background
+        # (custom background is applied separately in _apply_appearance_settings)
+        if not use_custom_bg:
+            self.setStyleSheet(get_global_styles(custom_background=False))
+        
+        self._active_view.setStyleSheet(get_active_tasks_view_styles(custom_background=use_custom_bg))
+        self._completed_view.setStyleSheet(get_completed_tasks_view_styles())
 
     def _load_initial_data(self) -> None:
         """Load initial task data from the database."""
@@ -354,6 +613,57 @@ class MainWindow(QMainWindow):
             message,
             QMessageBox.StandardButton.Ok
         )
+
+    def _apply_appearance_settings(self) -> None:
+        """Apply appearance settings to the window."""
+        settings = self._settings_manager.settings.appearance
+
+        # Apply window opacity
+        self.setWindowOpacity(settings.opacity)
+
+        # Apply custom background image if enabled
+        if settings.use_custom_background and settings.background_image:
+            self._apply_custom_background(settings.background_image)
+        else:
+            # Apply default styles without custom background
+            self.setStyleSheet(get_global_styles(custom_background=False))
+
+        # Re-apply view-specific styles
+        use_custom_bg = settings.use_custom_background and settings.background_image
+        self._active_view.setStyleSheet(get_active_tasks_view_styles(custom_background=use_custom_bg))
+        self._completed_view.setStyleSheet(get_completed_tasks_view_styles())
+
+    def _apply_custom_background(self, image_path: str) -> None:
+        """Apply custom background image to main window.
+
+        Args:
+            image_path: Path to the background image.
+        """
+        # Escape backslashes for CSS
+        escaped_path = image_path.replace("\\", "/")
+
+        # Get base styles with transparent backgrounds for custom background feature
+        base_styles = get_global_styles(custom_background=True)
+
+        # Remove the default QMainWindow background-color rule to avoid conflicts
+        base_styles_clean = re.sub(
+            r'QMainWindow\s*\{\s*background-color:\s*[^;]+;\s*\}',
+            '',
+            base_styles
+        )
+
+        # Add background image - PyQt6 doesn't support gradient + image in same property
+        # Use simple background-image without overlay
+        custom_bg_style = f"""
+        QMainWindow {{
+            background-image: url('{escaped_path}');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: rgba(0, 0, 0, 180);  /* Чёрный с прозрачностью 70% */
+        }}
+        """
+
+        self.setStyleSheet(base_styles_clean + custom_bg_style)
 
     def closeEvent(self, event: QCloseEvent) -> None:
         """Handle window close event to clean up threads.
