@@ -5,7 +5,6 @@ and handles the application logic with background threading.
 """
 
 import logging
-import re
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QCloseEvent, QFont, QPixmap, QPalette
@@ -63,6 +62,7 @@ class MainWindow(QMainWindow):
         self._workers: list[DatabaseWorker] = []  # Track all workers
         self._settings_manager = SettingsManager()
         self._previous_tab_index = 0  # Track previous tab for settings
+        self._bg_pixmap = None  # Custom background pixmap
 
         self._setup_ui()
         self._apply_styles()
@@ -74,12 +74,12 @@ class MainWindow(QMainWindow):
         self.setWindowTitle(self._config.app_name)
         self.setMinimumSize(600, 700)
 
-        # Central widget - must be transparent for custom background
+        # Central widget
         central_widget = QWidget()
         central_widget.setObjectName("centralWidget")
         self.setCentralWidget(central_widget)
 
-        # Main layout
+        # Main layout - this will hold the content
         main_layout = QVBoxLayout(central_widget)
         main_layout.setContentsMargins(0, 0, 0, 0)
         main_layout.setSpacing(0)
@@ -623,47 +623,86 @@ class MainWindow(QMainWindow):
 
         # Apply custom background image if enabled
         if settings.use_custom_background and settings.background_image:
+            # Apply global styles with transparent backgrounds
+            self.setStyleSheet(get_global_styles(custom_background=True))
             self._apply_custom_background(settings.background_image)
         else:
-            # Apply default styles without custom background
+            # Reset to default styles
+            self.setAutoFillBackground(False)
+            self._bg_pixmap = None
             self.setStyleSheet(get_global_styles(custom_background=False))
+            self.update()
 
         # Re-apply view-specific styles
         use_custom_bg = settings.use_custom_background and settings.background_image
         self._active_view.setStyleSheet(get_active_tasks_view_styles(custom_background=use_custom_bg))
         self._completed_view.setStyleSheet(get_completed_tasks_view_styles())
-
+    
+    
     def _apply_custom_background(self, image_path: str) -> None:
-        """Apply custom background image to main window.
+        """Apply custom background image with high quality scaling and overlay."""
+        from PyQt6.QtGui import QPainter, QColor
+
+        pixmap = QPixmap(image_path)
+        if pixmap.isNull():
+            logger.warning(f"Не удалось загрузить изображение: {image_path}")
+            self._bg_pixmap = None
+            return
+
+        # Создаём итоговое изображение под размер окна
+        result_pixmap = QPixmap(self.size())
+        result_pixmap.fill(Qt.GlobalColor.transparent)
+
+        painter = QPainter(result_pixmap)
+        
+        # === ЭТИ СТРОКИ САМЫЕ ВАЖНЫЕ ДЛЯ УСТРАНЕНИЯ ПИКСЕЛЬНОСТИ ===
+        painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
+        # ============================================================
+
+        # Масштабируем картинку с высоким качеством
+        scaled_pixmap = pixmap
+
+        # Центрируем изображение
+        x = (self.width() - scaled_pixmap.width()) // 2
+        y = (self.height() - scaled_pixmap.height()) // 2
+
+        painter.drawPixmap(x, y, scaled_pixmap)
+
+        # Затемнение (overlay) — берём значение из настроек
+        overlay_opacity = int(self._settings_manager.settings.appearance.background_overlay_opacity * 255)
+        painter.setBrush(QColor(0, 0, 0, overlay_opacity))   # 0..255
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.drawRect(result_pixmap.rect())
+
+        painter.end()
+
+        self._bg_pixmap = result_pixmap
+        self.update()
+    
+    
+    def paintEvent(self, event) -> None:
+        from PyQt6.QtGui import QPainter
+
+        painter = QPainter(self)
+        
+        if hasattr(self, '_bg_pixmap') and self._bg_pixmap and not self._bg_pixmap.isNull():
+            painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
+            painter.drawPixmap(0, 0, self._bg_pixmap)
+
+        super().paintEvent(event)   # важно вызывать в конце
+
+    def resizeEvent(self, event) -> None:
+        """Handle window resize to update background.
 
         Args:
-            image_path: Path to the background image.
+            event: Resize event.
         """
-        # Escape backslashes for CSS
-        escaped_path = image_path.replace("\\", "/")
-
-        # Get base styles with transparent backgrounds for custom background feature
-        base_styles = get_global_styles(custom_background=True)
-
-        # Remove the default QMainWindow background-color rule to avoid conflicts
-        base_styles_clean = re.sub(
-            r'QMainWindow\s*\{\s*background-color:\s*[^;]+;\s*\}',
-            '',
-            base_styles
-        )
-
-        # Add background image - PyQt6 doesn't support gradient + image in same property
-        # Use simple background-image without overlay
-        custom_bg_style = f"""
-        QMainWindow {{
-            background-image: url('{escaped_path}');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-color: rgba(0, 0, 0, 180);  /* Чёрный с прозрачностью 70% */
-        }}
-        """
-
-        self.setStyleSheet(base_styles_clean + custom_bg_style)
+        super().resizeEvent(event)
+        # Re-apply custom background on resize to scale properly
+        settings = self._settings_manager.settings.appearance
+        if settings.use_custom_background and settings.background_image:
+            self._apply_custom_background(settings.background_image)
 
     def closeEvent(self, event: QCloseEvent) -> None:
         """Handle window close event to clean up threads.

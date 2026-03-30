@@ -37,14 +37,11 @@ def get_global_styles(custom_background: bool = False) -> str:
     Returns:
         str: Combined QSS stylesheet for the entire application.
     """
-    bg_color = "transparent" if custom_background else COLORS["void_black"]
-    pane_bg = "transparent" if custom_background else COLORS["void_black"]
-
     return f"""
     /* ============================================
        GLOBAL STYLES - Obsidian × Spotify Design
        ============================================ */
-    
+
     * {{
         font-family: 'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }}
@@ -58,7 +55,7 @@ def get_global_styles(custom_background: bool = False) -> str:
        MAIN WINDOW
        ============================================ */
     QMainWindow {{
-        background-color: {bg_color};
+        background-color: transparent;
     }}
 
     QWidget#centralWidget {{
@@ -70,7 +67,7 @@ def get_global_styles(custom_background: bool = False) -> str:
        ============================================ */
     QTabWidget::pane {{
         border: none;
-        background-color: {pane_bg};
+        background-color: {COLORS['surface_dark']};
     }}
 
     /* ============================================
@@ -334,7 +331,7 @@ def get_global_styles(custom_background: bool = False) -> str:
     }}
 
     QPushButton#headerButton {{
-        background-color: transparent;
+        background-color: {COLORS['void_black']};
         border: none;
         border-bottom: 2px solid transparent;
         color: {COLORS['muted_gray']};
@@ -350,7 +347,7 @@ def get_global_styles(custom_background: bool = False) -> str:
     }}
 
     QPushButton#headerButton:checked {{
-        background-color: {COLORS['surface_dark']};
+        background-color: {COLORS['void_black']};
         color: {COLORS['pure_white']};
         border-bottom: 2px solid {COLORS['nebula_purple']};
         font-weight: 600;
@@ -489,6 +486,10 @@ def get_active_tasks_view_styles(custom_background: bool = False) -> str:
         border: none;
         background-color: transparent;
     }}
+
+    QScrollArea#tasksScrollArea > QWidget {{
+        background-color: transparent;
+    }}
     """
 
 
@@ -521,6 +522,10 @@ def get_completed_tasks_view_styles() -> str:
        ============================================ */
     QScrollArea#completedScrollArea {{
         border: none;
+        background-color: transparent;
+    }}
+
+    QScrollArea#completedScrollArea > QWidget {{
         background-color: transparent;
     }}
     """

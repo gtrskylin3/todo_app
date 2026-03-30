@@ -8,6 +8,14 @@ A modern, dark-themed Desktop TODO Application built with PyQt6 and SQLAlchemy.
 
 ---
 
+## 📸 Screenshots
+
+![Application Preview](Preview.png)
+
+*The TODO application with custom background image support and Obsidian × Spotify dark theme.*
+
+---
+
 ## 📖 Table of Contents
 
 - [Features](#-features)
@@ -32,14 +40,15 @@ A modern, dark-themed Desktop TODO Application built with PyQt6 and SQLAlchemy.
 - ✅ **Delete Tasks** — Remove tasks with confirmation dialog
 - ✅ **Task Completion** — Click checkbox to mark tasks as done
 - ✅ **Date Grouping** — Completed tasks grouped by date (reverse chronological)
+- ✅ **Reopen Tasks** — Return completed tasks to active list
 
 ### UI/UX
 
-- 🎨 **Dark Theme** — Obsidian × Spotify inspired design
-- 🎨 **Modern Styling** — Purple accent colors (#8B5CF6)
-- 🎨 **Smooth Interactions** — Hover effects and transitions
+- 🎨 **Obsidian × Spotify Theme** — Dark design with purple accents (#8B5CF6)
+- 🎨 **Custom Background** — Support for personalized background images with 60% dark overlay
+- 🎨 **Tab Navigation** — Clean header buttons for Active, Completed, and Settings tabs
+- 🎨 **Smooth Interactions** — Hover effects and visual feedback
 - 🎨 **No UI Blocking** — All database operations run in background threads
-- 🎨 **Clean Layout** — Minimal design with focus on content
 
 ### Technical
 
@@ -48,35 +57,6 @@ A modern, dark-themed Desktop TODO Application built with PyQt6 and SQLAlchemy.
 - 🏗️ **Dependency Injection** — Explicit dependency management
 - 🏗️ **Type Hints** — Full type annotations throughout
 - 🏗️ **Comprehensive Tests** — 63 unit tests covering core logic
-
----
-
-## 📸 Screenshots
-
-### Active Tasks View
-```
-┌────────────────────────────────────────────┐
-│  Active Tasks                       [⚙]   │
-├────────────────────────────────────────────┤
-│  [Add a new task... Press Enter]  [Add]   │
-├────────────────────────────────────────────┤
-│  ☐ Task Title 1              [15/03]      │
-│  ☐ Task Title 2              [14/03]      │
-│  ☑ Completed Task              [13/03]    │
-└────────────────────────────────────────────┘
-```
-
-### Completed Tasks View
-```
-┌────────────────────────────────────────────┐
-│  Completed Tasks                    [⚙]   │
-├────────────────────────────────────────────┤
-│  ▼ 15 March 2026                  (3)     │
-│    ☑ Task A  ☑ Task B  ☑ Task C           │
-├────────────────────────────────────────────┤
-│  ▶ 14 March 2026                  (2)     │
-└────────────────────────────────────────────┘
-```
 
 ---
 
