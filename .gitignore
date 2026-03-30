@@ -13,3 +13,6 @@ Promt.md
 *.log
 .pytest_cahce
 .ruff_cahce
+logs/app.log
+data/settings.json
+data/todo.db
