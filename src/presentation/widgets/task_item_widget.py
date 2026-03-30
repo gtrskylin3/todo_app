@@ -104,7 +104,7 @@ class TaskItemWidget(QFrame):
 
         # Date label
         date_str = self._get_date_string()
-        self._date_label = QLabel(f"[{date_str}]")
+        self._date_label = QLabel(date_str)
         self._date_label.setObjectName("dateLabel")
         date_font = QFont()
         date_font.setPointSize(9)
@@ -173,13 +173,26 @@ class TaskItemWidget(QFrame):
 
     def _get_date_string(self) -> str:
         """Get the date string for display.
-        
+
         Returns:
-            str: Formatted date string (DD/MM).
+            str: Formatted date string (e.g., "30 марта").
         """
+        # Русские названия месяцев
+        month_names = {
+            1: "января", 2: "февраля", 3: "марта", 4: "апреля",
+            5: "мая", 6: "июня", 7: "июля", 8: "августа",
+            9: "сентября", 10: "октября", 11: "ноября", 12: "декабря"
+        }
+        
         if self._completed_at:
-            return self._completed_at.strftime("%d/%m")
-        return self._created_at.strftime("%d/%m")
+            date = self._completed_at
+        else:
+            date = self._created_at
+            
+        day = date.day
+        month = month_names.get(date.month, "")
+        
+        return f"{day} {month}"
 
     def _on_checkbox_changed(self, state: int) -> None:
         """Handle checkbox state change.

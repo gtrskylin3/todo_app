@@ -403,6 +403,9 @@ def get_global_styles(custom_background: bool = False) -> str:
     QPushButton#browseButton:hover {{
         background-color: {COLORS['dim_gray']};
     }}
+
+    /* LoFi Button */
+        {get_lofi_button_styles()}
     """
 
 
@@ -662,6 +665,79 @@ def get_task_item_styles(custom_background: bool = False) -> str:
     }}
     """
 
+def get_lofi_button_styles() -> str:
+    """Стили для плавающей кнопки LoFi в стиле header кнопок"""
+    return """
+    /* ============================================
+       LOFI FLOATING BUTTON - Header style
+       ============================================ */
+    QPushButton#lofiButton {
+        background-color: #0D0D0D;                   /* void_black как у header */
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: #A0A0A0;                              /* muted_gray */
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 0;
+        padding: 0;
+        min-width: 90px;
+        height: 36px;
+    }
+
+    QPushButton#lofiButton:hover {
+        background-color: #1A1A1A;                   /* surface_dark */
+        color: #FFFFFF;
+    }
+
+    QPushButton#lofiButton:pressed {
+        background-color: #1A1A1A;
+    }
+
+    /* Когда LoFi играет (checked state) */
+    QPushButton#lofiButton:checked {
+        background-color: #0D0D0D;
+        color: #FFFFFF;
+        border-bottom: 2px solid #8B5CF6;            /* nebula_purple */
+        font-weight: 600;
+    }
+
+    QPushButton#lofiButton:checked:hover {
+        color: #FFFFFF;
+    }
+    
+    /* ============================================
+       LOFI VOLUME SLIDER
+       ============================================ */
+    QSlider#lofiVolumeSlider::groove:horizontal {
+        border: none;
+        height: 4px;
+        background-color: #242424;                   /* surface_light */
+        border-radius: 2px;
+    }
+
+    QSlider#lofiVolumeSlider::handle:horizontal {
+        background-color: #FFFFFF;
+        border: none;
+        width: 12px;
+        height: 12px;
+        margin: -4px 0;
+        border-radius: 6px;
+    }
+
+    QSlider#lofiVolumeSlider::handle:horizontal:hover {
+        background-color: #8B5CF6;                   /* nebula_purple */
+    }
+
+    QSlider#lofiVolumeSlider::sub-page:horizontal {
+        background-color: #8B5CF6;
+        border-radius: 2px;
+    }
+
+    QSlider#lofiVolumeSlider::add-page:horizontal {
+        background-color: #242424;
+        border-radius: 2px;
+    }
+    """
 
 def get_date_group_styles(custom_background: bool = False) -> str:
     """Get styles for DateGroupWidget.

@@ -6,7 +6,7 @@ and handles the application logic with background threading.
 
 import logging
 
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QTimer
 from PyQt6.QtGui import QCloseEvent, QFont, QPixmap, QPalette
 from PyQt6.QtWidgets import (
     QCheckBox,
@@ -33,6 +33,7 @@ from src.presentation.views.completed_tasks_view import CompletedTasksView
 from src.presentation.widgets.edit_task_dialog import EditTaskDialog
 from src.presentation.workers.db_worker import DatabaseWorker
 from src.settings import SettingsManager
+from src.presentation.widgets.lofi_player import LofiPlayer
 
 logger = logging.getLogger(__name__)
 
@@ -63,6 +64,7 @@ class MainWindow(QMainWindow):
         self._settings_manager = SettingsManager()
         self._previous_tab_index = 0  # Track previous tab for settings
         self._bg_pixmap = None  # Custom background pixmap
+        self._lofi_player = None  # LoFi player widget
 
         self._setup_ui()
         self._apply_styles()
@@ -81,7 +83,7 @@ class MainWindow(QMainWindow):
 
         # Main layout - this will hold the content
         main_layout = QVBoxLayout(central_widget)
-        main_layout.setContentsMargins(0, 0, 0, 0)
+        main_layout.setContentsMargins(0, 0, 0, 0)  # Оставляем место для LoFi кнопки
         main_layout.setSpacing(0)
 
         # Header with tab buttons
@@ -114,6 +116,16 @@ class MainWindow(QMainWindow):
         self._tab_widget.addTab(self._settings_view, "Settings")
 
         main_layout.addWidget(self._tab_widget, 1)
+
+        # Создаём LoFi плеер после setup_ui
+        self._create_lofi_player()
+
+    def _create_lofi_player(self) -> None:
+        """Создать и позиционировать LoFi плеер в правом нижнем углу"""
+        self._lofi_player = LofiPlayer(self)
+        self._lofi_player.show()
+        # Позиционируем после показа
+        QTimer.singleShot(100, self._update_lofi_position)
 
     def _create_header(self) -> QWidget:
         """Create the header widget with tab buttons.
@@ -154,6 +166,28 @@ class MainWindow(QMainWindow):
 
         return header
 
+    def _update_lofi_position(self) -> None:
+        """Позиционирует LoFi плеер в правом нижнем углу content area"""
+        if self._lofi_player:
+            margin = 0
+            # Позиционируем относительно centralWidget
+            central = self.centralWidget()
+            if central:
+                x = central.width() - self._lofi_player.width() - margin
+                y = central.height() - self._lofi_player.height() - margin
+                self._lofi_player.setParent(central)
+                self._lofi_player.move(x, y)
+
+    def resizeEvent(self, event) -> None:
+        """Обработка изменения размера окна для обновления позиции LoFi и фона"""
+        super().resizeEvent(event)
+        self._update_lofi_position()
+
+        # Обновляем фон при изменении размера
+        settings = self._settings_manager.settings.appearance
+        if settings.use_custom_background and settings.background_image:
+            self._apply_custom_background(settings.background_image)
+
     def _on_header_button_clicked(self, index: int) -> None:
         """Handle header button click.
 
@@ -165,7 +199,7 @@ class MainWindow(QMainWindow):
         self._active_btn.setChecked(index == 0)
         self._completed_btn.setChecked(index == 1)
         self._settings_btn.setChecked(index == 2)
-    
+
     def _create_settings_view(self) -> QWidget:
         """Create the settings view widget.
         
@@ -271,10 +305,17 @@ class MainWindow(QMainWindow):
 
     def _on_tab_changed(self, index: int) -> None:
         """Handle tab change event.
-        
+
         Args:
             index: Index of the selected tab.
         """
+        # Показываем LoFi только на вкладке Active (index=0)
+        if self._lofi_player:
+            self._lofi_player.setVisible(index == 0)
+            # Поднимаем кнопку выше контента
+            if index == 0:
+                self._lofi_player.raise_()
+
         if index == 2:  # Settings tab
             # Load current settings into UI
             self._load_settings_into_ui()
@@ -692,32 +733,24 @@ class MainWindow(QMainWindow):
 
         super().paintEvent(event)   # важно вызывать в конце
 
-    def resizeEvent(self, event) -> None:
-        """Handle window resize to update background.
-
-        Args:
-            event: Resize event.
-        """
-        super().resizeEvent(event)
-        # Re-apply custom background on resize to scale properly
-        settings = self._settings_manager.settings.appearance
-        if settings.use_custom_background and settings.background_image:
-            self._apply_custom_background(settings.background_image)
-
     def closeEvent(self, event: QCloseEvent) -> None:
         """Handle window close event to clean up threads.
-        
+
         This method ensures all background threads are properly stopped
         before the application closes, preventing QThread warnings.
-        
+
         Args:
             event: Close event.
         """
         logger.info("Closing application...")
-        
+
+        # Останавливаем LoFi
+        if self._lofi_player:
+            self._lofi_player.stop()
+
         # Wait for all workers to finish
         for worker in self._workers:
             if worker.isRunning():
                 worker.wait(1000)  # Wait up to 1 second per worker
-        
+
         event.accept()
