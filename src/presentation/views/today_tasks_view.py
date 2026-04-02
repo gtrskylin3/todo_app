@@ -1,15 +1,15 @@
 """View for displaying today's tasks.
 
 This module provides the TodayTasksView which shows tasks created today
-with a quick-add input field at the top.
+with a quick-add button at the top.
 """
 
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (
+    QDialog,
     QHBoxLayout,
     QLabel,
-    QLineEdit,
     QPushButton,
     QScrollArea,
     QVBoxLayout,
@@ -19,6 +19,7 @@ from PyQt6.QtWidgets import (
 from src.application.task_service import TaskServiceResult
 from src.domain.task_entity import TaskEntity
 from src.presentation.styles import get_active_tasks_view_styles
+from src.presentation.widgets.create_task_dialog import CreateTaskDialog
 from src.presentation.widgets.task_item_widget import TaskItemWidget
 
 
@@ -29,13 +30,13 @@ class TodayTasksView(QWidget):
     with a quick-add input field at the top.
 
     Signals:
-        create_requested: Emitted when a new task should be created (title: str).
+        create_requested: Emitted when a new task should be created (title: str, description: str | None).
         toggle_requested: Emitted when task completion should be toggled (task_id: int).
         edit_requested: Emitted when task edit is requested (task_id: int).
         delete_requested: Emitted when task deletion is requested (task_id: int).
     """
 
-    create_requested = pyqtSignal(str)
+    create_requested = pyqtSignal(str, str)  # title, description
     toggle_requested = pyqtSignal(int)
     edit_requested = pyqtSignal(int)
     delete_requested = pyqtSignal(int)
@@ -70,26 +71,15 @@ class TodayTasksView(QWidget):
         header_label.setFont(header_font)
         layout.addWidget(header_label)
 
-        # Quick add input
-        add_layout = QHBoxLayout()
-        add_layout.setSpacing(8)
-
-        self._add_input = QLineEdit()
-        self._add_input.setObjectName("taskInput")
-        self._add_input.setPlaceholderText("Add a new task... Press Enter to create")
-        self._add_input.setFixedHeight(40)
-        self._add_input.returnPressed.connect(self._on_add_input_return_pressed)
-        add_layout.addWidget(self._add_input)
-
         # Add button
-        self._add_button = QPushButton("Add")
+        add_layout = QHBoxLayout()
+        self._add_button = QPushButton("+ Add New Task")
         self._add_button.setObjectName("addButton")
         self._add_button.setFixedHeight(40)
-        self._add_button.setFixedWidth(80)
         self._add_button.setCursor(Qt.CursorShape.PointingHandCursor)
         self._add_button.clicked.connect(self._on_add_button_clicked)
         add_layout.addWidget(self._add_button)
-
+        add_layout.addStretch()
         layout.addLayout(add_layout)
 
         # Scroll area for tasks
@@ -113,20 +103,14 @@ class TodayTasksView(QWidget):
         """Apply Qt Style Sheets."""
         self.setStyleSheet(get_active_tasks_view_styles(custom_background=False))
 
-    def _on_add_input_return_pressed(self) -> None:
-        """Handle Enter key press in add input."""
-        self._try_add_task()
-
     def _on_add_button_clicked(self) -> None:
         """Handle add button click."""
-        self._try_add_task()
-
-    def _try_add_task(self) -> None:
-        """Try to add a new task from the input field."""
-        title = self._add_input.text().strip()
-        if title:
-            self.create_requested.emit(title)
-            self._add_input.clear()
+        dialog = CreateTaskDialog(self)
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            title, description = dialog.get_result()
+            if title:
+                self.create_requested.emit(title, description or "")
+           
 
     def set_tasks(self, tasks: list[TaskEntity]) -> None:
         """Set the tasks to display.

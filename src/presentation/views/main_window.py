@@ -332,8 +332,9 @@ class MainWindow(QMainWindow):
         # Показываем LoFi только на вкладке Today (index=0)
         if self._lofi_player:
             self._lofi_player.setVisible(index == 0)
+            self._lofi_player.setVisible(index == 1)
             # Поднимаем кнопку выше контента
-            if index == 0:
+            if index == 0 or index == 1:
                 self._lofi_player.raise_()
 
         if index == 3:  # Settings tab
@@ -498,14 +499,15 @@ class MainWindow(QMainWindow):
         self._completed_view.set_tasks_by_date(tasks_by_date)
         logger.debug(f"Loaded completed tasks for {len(tasks_by_date)} dates")
 
-    def _on_create_task(self, title: str) -> None:
+    def _on_create_task(self, title: str, description: str) -> None:
         """Handle create task request.
 
         Args:
             title: Task title.
+            description: Task description.
         """
         def create():
-            return self._task_service.create_task(title)
+            return self._task_service.create_task(title, description)
 
         worker = DatabaseWorker(create)
         worker.signals.result.connect(self._on_create_result)
@@ -596,13 +598,14 @@ class MainWindow(QMainWindow):
 
     def _on_update_result(self, result: TaskServiceResult) -> None:
         """Handle update task result.
-        
+
         Args:
             result: Result of the update operation.
         """
         if result.success:
             logger.info(f"Task updated: {result.task.title if result.task else 'unknown'}")
-            # Reload active tasks to show updated task
+            # Reload both today and active tasks to show updated task
+            self._load_today_tasks()
             self._load_active_tasks()
         else:
             self._show_error_message(f"Failed to update task: {result.error}")

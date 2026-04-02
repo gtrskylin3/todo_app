@@ -452,28 +452,6 @@ def get_active_tasks_view_styles(custom_background: bool = False) -> str:
     }}
 
     /* ============================================
-       INPUT FIELD
-       ============================================ */
-    QLineEdit#taskInput {{
-        background-color: {COLORS['surface_dark']};
-        border: 1px solid {COLORS['dim_gray']};
-        border-radius: 8px;
-        padding: 12px 16px;
-        color: {COLORS['pure_white']};
-        font-size: 14px;
-        min-height: 40px;
-    }}
-
-    QLineEdit#taskInput:focus {{
-        border: 2px solid {COLORS['nebula_purple']};
-        background-color: {COLORS['surface_dark']};
-    }}
-
-    QLineEdit#taskInput::placeholder {{
-        color: {COLORS['muted_gray']};
-    }}
-
-    /* ============================================
        ADD BUTTON with Gradient
        ============================================ */
     QPushButton#addButton {{
@@ -481,10 +459,11 @@ def get_active_tasks_view_styles(custom_background: bool = False) -> str:
             stop:0 {COLORS['nebula_purple']}, stop:1 {COLORS['deep_violet']});
         border: none;
         border-radius: 8px;
-        padding: 12px 24px;
+        padding: 12px 32px;
         color: {COLORS['pure_white']};
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 600;
+        min-width: 200px;
     }}
 
     QPushButton#addButton:hover {{

@@ -71,7 +71,7 @@ class CreateTaskDialog(QDialog):
         desc_label.setObjectName("fieldLabel")
         desc_input_layout.addWidget(desc_label)
 
-        self._description_input = QTextEdit()
+        self._description_input = QLineEdit()
         self._description_input.setObjectName("taskDescriptionInput")
         self._description_input.setPlaceholderText("Enter task description...")
         self._description_input.setFixedHeight(80)
@@ -206,5 +206,5 @@ class CreateTaskDialog(QDialog):
             Tuple of (title, description). Description can be None.
         """
         title = self._title_input.text().strip()
-        description = self._description_input.toPlainText().strip()
+        description = self._description_input.text().strip()
         return title, description if description else None
