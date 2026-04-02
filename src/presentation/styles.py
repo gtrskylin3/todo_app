@@ -463,7 +463,7 @@ def get_active_tasks_view_styles(custom_background: bool = False) -> str:
         color: {COLORS['pure_white']};
         font-size: 14px;
         font-weight: 600;
-        min-width: 200px;
+        min-width: 100px;
     }}
 
     QPushButton#addButton:hover {{
@@ -514,6 +514,22 @@ def get_completed_tasks_view_styles() -> str:
         font-weight: 600;
     }}
 
+    /* Month header for completed tasks */
+    QLabel#monthHeaderLabel {{
+        color: {COLORS['lavender_glow']};
+        font-size: 14px;
+        font-weight: 700;
+        padding: 8px 0;
+        background-color: transparent;
+    }}
+
+    /* Month expand/collapse indicator */
+    QLabel#monthIndicator {{
+        color: {COLORS['muted_gray']};
+        font-size: 12px;
+        background-color: transparent;
+    }}
+
     /* ============================================
        SCROLL AREA
        ============================================ */
@@ -524,6 +540,14 @@ def get_completed_tasks_view_styles() -> str:
 
     QScrollArea#completedScrollArea > QWidget {{
         background-color: transparent;
+    }}
+
+    /* Month group container */
+    QWidget#monthGroup {{
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        margin: 0;
     }}
     """
 
