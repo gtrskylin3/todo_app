@@ -6,7 +6,7 @@ and handles the application logic with background threading.
 
 import logging
 
-from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import QSize, Qt, QTimer
 from PyQt6.QtGui import QCloseEvent, QFont, QPixmap, QPalette
 from PyQt6.QtWidgets import (
     QCheckBox,
@@ -67,6 +67,7 @@ class MainWindow(QMainWindow):
         self._bg_pixmap = None  # Custom background pixmap
         self._lofi_player = None  # LoFi player widget
         self._today_view = None  # Today tasks view
+        self._bg_movie = None # for animation bg
 
         self._setup_ui()
         self._apply_styles()
@@ -198,14 +199,14 @@ class MainWindow(QMainWindow):
                 self._lofi_player.move(x, y)
 
     def resizeEvent(self, event) -> None:
-        """Обработка изменения размера окна для обновления позиции LoFi и фона"""
+        """Обработка изменения размера окна"""
         super().resizeEvent(event)
         self._update_lofi_position()
 
-        # Обновляем фон при изменении размера
+        # При ресайзе просто перерисовываем (центрирование считает paintEvent)
         settings = self._settings_manager.settings.appearance
         if settings.use_custom_background and settings.background_image:
-            self._apply_custom_background(settings.background_image)
+            self.update()
 
     def _on_header_button_clicked(self, index: int) -> None:
         """Handle header button click.
@@ -730,57 +731,81 @@ class MainWindow(QMainWindow):
     
     
     def _apply_custom_background(self, image_path: str) -> None:
-        """Apply custom background image with high quality scaling and overlay."""
-        from PyQt6.QtGui import QPainter, QColor
+        """Загружает изображение или GIF в оригинальном размере."""
+        from PyQt6.QtGui import QMovie, QPixmap
 
-        pixmap = QPixmap(image_path)
-        if pixmap.isNull():
-            logger.warning(f"Не удалось загрузить изображение: {image_path}")
-            self._bg_pixmap = None
-            return
+        # Очистка предыдущих ресурсов
+        if self._bg_movie:
+            self._bg_movie.stop()
+            self._bg_movie.deleteLater()
+            self._bg_movie = None
+        self._bg_pixmap = None
 
-        # Создаём итоговое изображение под размер окна
-        result_pixmap = QPixmap(self.size())
-        result_pixmap.fill(Qt.GlobalColor.transparent)
+        if image_path.lower().endswith('.gif'):
+            self._bg_movie = QMovie(image_path)
+            if not self._bg_movie.isValid():
+                logger.warning(f"Не удалось загрузить GIF: {image_path}")
+                return
+            # Перерисовка при смене кадра
+            self._bg_movie.frameChanged.connect(self.update)
+            self._bg_movie.start()
+        else:
+            self._bg_pixmap = QPixmap(image_path)
+            if self._bg_pixmap.isNull():
+                logger.warning(f"Не удалось загрузить изображение: {image_path}")
+                return
 
-        painter = QPainter(result_pixmap)
-        
-        # === ЭТИ СТРОКИ САМЫЕ ВАЖНЫЕ ДЛЯ УСТРАНЕНИЯ ПИКСЕЛЬНОСТИ ===
-        painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing, True)
-        # ============================================================
-
-        # Масштабируем картинку с высоким качеством
-        scaled_pixmap = pixmap
-
-        # Центрируем изображение
-        x = (self.width() - scaled_pixmap.width()) // 2
-        y = (self.height() - scaled_pixmap.height()) // 2
-
-        painter.drawPixmap(x, y, scaled_pixmap)
-
-        # Затемнение (overlay) — берём значение из настроек
-        overlay_opacity = int(self._settings_manager.settings.appearance.background_overlay_opacity * 255)
-        painter.setBrush(QColor(0, 0, 0, overlay_opacity))   # 0..255
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.drawRect(result_pixmap.rect())
-
-        painter.end()
-
-        self._bg_pixmap = result_pixmap
         self.update()
     
+    def _calculate_scaled_size(self, source_size: QSize, target_size: QSize) -> QSize:
+        """Calculate scaled size preserving aspect ratio (cover mode)."""
+        src_w, src_h = source_size.width(), source_size.height()
+        tgt_w, tgt_h = target_size.width(), target_size.height()
+        
+        if src_w == 0 or src_h == 0:
+            return target_size
+        
+        # Коэффициенты масштабирования
+        scale_w = tgt_w / src_w
+        scale_h = tgt_h / src_h
+        
+        # Выбираем больший коэффициент для режима "cover" (как background-size: cover в CSS)
+        scale = max(scale_w, scale_h)
+        
+        new_w = int(src_w * scale)
+        new_h = int(src_h * scale)
+        
+        return QSize(new_w, new_h)
     
     def paintEvent(self, event) -> None:
-        from PyQt6.QtGui import QPainter
+        from PyQt6.QtGui import QPainter, QColor
+        from PyQt6.QtCore import Qt
 
         painter = QPainter(self)
-        
-        if hasattr(self, '_bg_pixmap') and self._bg_pixmap and not self._bg_pixmap.isNull():
-            painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
-            painter.drawPixmap(0, 0, self._bg_pixmap)
 
-        super().paintEvent(event)   # важно вызывать в конце
+        # Определяем текущий кадр/изображение
+        current_pixmap = QPixmap()
+        if hasattr(self, '_bg_movie') and self._bg_movie and self._bg_movie.isValid():
+            current_pixmap = self._bg_movie.currentPixmap()
+        elif hasattr(self, '_bg_pixmap') and self._bg_pixmap and not self._bg_pixmap.isNull():
+            current_pixmap = self._bg_pixmap
+
+        # Рисуем фон по центру окна
+        if not current_pixmap.isNull():
+            painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform, True)
+            x = (self.width() - current_pixmap.width()) // 2
+            y = (self.height() - current_pixmap.height()) // 2
+            painter.drawPixmap(x, y, current_pixmap)
+
+        # Затемнение поверх любого фона
+        settings = self._settings_manager.settings.appearance
+        if settings.use_custom_background and settings.background_image:
+            overlay_opacity = int(settings.background_overlay_opacity * 255)
+            painter.setBrush(QColor(0, 0, 0, overlay_opacity))
+            painter.setPen(Qt.PenStyle.NoPen)
+            painter.drawRect(self.rect())
+
+        super().paintEvent(event)
 
     def closeEvent(self, event: QCloseEvent) -> None:
         """Handle window close event to clean up threads.
