@@ -330,12 +330,11 @@ class MainWindow(QMainWindow):
         Args:
             index: Index of the selected tab.
         """
-        # Показываем LoFi только на вкладке Today (index=0)
+        # Показываем LoFi только на вкладке Today (index=0) и Active (index = 1)
         if self._lofi_player:
-            self._lofi_player.setVisible(index == 0)
-            self._lofi_player.setVisible(index == 1)
+            self._lofi_player.setVisible(index in (1, 0))
             # Поднимаем кнопку выше контента
-            if index == 0 or index == 1:
+            if index in (0, 1):
                 self._lofi_player.raise_()
 
         if index == 3:  # Settings tab
