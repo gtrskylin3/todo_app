@@ -261,9 +261,9 @@ class MainWindow(QMainWindow):
         self._bg_image_input.setReadOnly(True)
         path_layout.addWidget(self._bg_image_input)
         
-        browse_btn = QPushButton("Browse...")
+        browse_btn = QPushButton("Browse")
         browse_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-        browse_btn.setFixedWidth(80)
+        browse_btn.setFixedWidth(100)
         browse_btn.clicked.connect(self._on_browse_clicked)
         path_layout.addWidget(browse_btn)
         
@@ -668,7 +668,7 @@ class MainWindow(QMainWindow):
 
     def _on_reopen_result(self, result: TaskServiceResult, task_id: int) -> None:
         """Handle reopen task result.
-        
+
         Args:
             result: Result of the reopen operation.
             task_id: ID of the reopened task.
@@ -676,7 +676,8 @@ class MainWindow(QMainWindow):
         if result.success:
             logger.info(f"Task {task_id} reopened")
             self._completed_view.handle_reopen(task_id)
-            # Reload active tasks to show reopened task
+            # Reload both today and active tasks to show reopened task
+            self._load_today_tasks()
             self._load_active_tasks()
         else:
             self._show_error_message(f"Failed to reopen task: {result.error}")

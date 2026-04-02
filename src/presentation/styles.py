@@ -653,9 +653,10 @@ def get_task_item_styles(custom_background: bool = False) -> str:
         background-color: transparent;
         border: none;
         border-radius: 6px;
-        padding: 6px 10px;
+        padding: 6px 12px;
         color: {COLORS['muted_gray']};
-        font-size: 16px;
+        font-size: 13px;
+        min-width: 80px;
     }}
 
     QPushButton#editButton:hover {{
@@ -674,7 +675,8 @@ def get_task_item_styles(custom_background: bool = False) -> str:
         border-radius: 6px;
         padding: 6px 12px;
         color: {COLORS['success_green']};
-        font-size: 12px;
+        font-size: 13px;
+        min-width: 100px;
     }}
 
     QPushButton#reopenButton:hover {{

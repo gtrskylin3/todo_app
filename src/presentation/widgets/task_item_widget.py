@@ -144,23 +144,26 @@ class TaskItemWidget(QFrame):
         if self._completed_at is not None:
             # Reopen button for completed tasks
             reopen_btn = QPushButton("Reopen")
+            reopen_btn.setObjectName("reopenButton")
             reopen_btn.setCursor(Qt.CursorShape.PointingHandCursor)
             reopen_btn.clicked.connect(self._on_reopen_clicked)
-            reopen_btn.setFixedWidth(80)
+            reopen_btn.setMinimumWidth(100)
             button_layout.addWidget(reopen_btn)
         else:
             # Edit button
             edit_btn = QPushButton("Edit")
+            edit_btn.setObjectName("editButton")
             edit_btn.setCursor(Qt.CursorShape.PointingHandCursor)
             edit_btn.clicked.connect(self._on_edit_clicked)
-            edit_btn.setFixedWidth(60)
+            edit_btn.setMinimumWidth(80)
             button_layout.addWidget(edit_btn)
 
             # Delete button
-            delete_btn = QPushButton("Remove")
+            delete_btn = QPushButton("🗑 Remove")
+            delete_btn.setObjectName("deleteButton")
             delete_btn.setCursor(Qt.CursorShape.PointingHandCursor)
             delete_btn.clicked.connect(self._on_delete_clicked)
-            delete_btn.setFixedWidth(80)
+            delete_btn.setMinimumWidth(100)
             button_layout.addWidget(delete_btn)
 
         button_layout.addSpacerItem(QSpacerItem(

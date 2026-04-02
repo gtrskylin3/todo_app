@@ -77,10 +77,10 @@ class SettingsDialog(QDialog):
         self._bg_image_input.setReadOnly(True)
         path_layout.addWidget(self._bg_image_input)
         
-        browse_btn = QPushButton("Browse...")
+        browse_btn = QPushButton("Browse")
         browse_btn.setObjectName("browseButton")
         browse_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-        browse_btn.setFixedWidth(80)
+        browse_btn.setFixedWidth(100)
         browse_btn.clicked.connect(self._on_browse_clicked)
         path_layout.addWidget(browse_btn)
         
