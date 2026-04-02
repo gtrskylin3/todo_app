@@ -104,7 +104,7 @@ class ActiveTasksView(QWidget):
         self._tasks_layout.addStretch()
 
         self._scroll_area.setWidget(self._tasks_container)
-        self._scroll_area.setFixedHeight(400)
+    
         layout.addWidget(self._scroll_area)
 
         # Empty state label

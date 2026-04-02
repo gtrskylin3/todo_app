@@ -72,7 +72,6 @@ class CompletedTasksView(QWidget):
         self._groups_layout.addStretch()
 
         self._scroll_area.setWidget(self._groups_container)
-        self._scroll_area.setFixedHeight(400)
         layout.addWidget(self._scroll_area)
 
         # Empty state label

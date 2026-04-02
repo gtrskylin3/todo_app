@@ -31,7 +31,7 @@ class LofiPlayer(QWidget):
         """Обновить QAudioOutput с текущим устройством по умолчанию"""
         device = QMediaDevices.defaultAudioOutput()
         self.audio_output = QAudioOutput(device)
-        self.audio_output.setVolume(0.5)  # 50% громкость по умолчанию
+        self.audio_output.setVolume(0.05)  # 50% громкость по умолчанию
         self.lofi_player.setAudioOutput(self.audio_output)
         logger.info(f"Audio output set to: {device.description()}")
 
@@ -56,8 +56,8 @@ class LofiPlayer(QWidget):
         self.volume_slider = QSlider(Qt.Orientation.Horizontal)
         self.volume_slider.setObjectName("lofiVolumeSlider")
         self.volume_slider.setMinimum(0)
-        self.volume_slider.setMaximum(100)
-        self.volume_slider.setValue(50)  # 50% по умолчанию
+        self.volume_slider.setMaximum(20)
+        self.volume_slider.setValue(5)  # 50% по умолчанию
         self.volume_slider.setFixedWidth(90)  # Компактный размер
         self.volume_slider.setFixedHeight(20)
         self.volume_slider.setCursor(Qt.CursorShape.PointingHandCursor)
@@ -83,7 +83,7 @@ class LofiPlayer(QWidget):
 
     def _on_volume_changed(self, value: int):
         """Изменение громкости"""
-        volume = value / 100.0
+        volume = value / 150
         self.audio_output.setVolume(volume)
         logger.debug(f"Volume changed to {value}%")
 
@@ -98,7 +98,7 @@ class LofiPlayer(QWidget):
 
     def _start_playing(self):
         self.is_loading = True
-        self.button.setText("⏳")
+        self.button.setText("🎵")
         self.button.setEnabled(False)
 
         logger.info("Starting LoFi stream...")
@@ -114,7 +114,7 @@ class LofiPlayer(QWidget):
         if state == QMediaPlayer.PlaybackState.PlayingState:
             self.is_playing = True
             self.is_loading = False
-            self.button.setText("⏹️")
+            self.button.setText("⏸️")
             self.button.setEnabled(True)
             # Показываем ползунок громкости
             self.volume_slider.setVisible(True)

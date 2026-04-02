@@ -375,6 +375,11 @@ def get_global_styles(custom_background: bool = False) -> str:
         background-color: {COLORS['surface_dark']};
     }}
 
+    QPushButton:focus {{
+        outline: none;
+        border: 1px solid {COLORS['dim_gray']};
+    }}
+
     QPushButton#saveButton {{
         background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
             stop:0 {COLORS['nebula_purple']}, stop:1 {COLORS['deep_violet']});
@@ -390,6 +395,11 @@ def get_global_styles(custom_background: bool = False) -> str:
     QPushButton#saveButton:pressed {{
         background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
             stop:0 {COLORS['deep_violet']}, stop:1 #6D28D9);
+    }}
+
+    QPushButton#saveButton:focus {{
+        outline: none;
+        border: none;
     }}
 
     QPushButton#browseButton {{
@@ -429,6 +439,11 @@ def get_active_tasks_view_styles(custom_background: bool = False) -> str:
     QLabel, QLabel#headerLabel {{
         color: {COLORS['pure_white']};
         background-color: transparent;
+    }}
+
+    QLabel:focus, QLabel#headerLabel:focus {{
+        outline: none;
+        border: none;
     }}
 
     QLabel#headerLabel {{
@@ -672,7 +687,7 @@ def get_lofi_button_styles() -> str:
        LOFI FLOATING BUTTON - Header style
        ============================================ */
     QPushButton#lofiButton {
-        background-color: #0D0D0D;                   /* void_black как у header */
+        background-color: transparent;                   /* void_black как у header */
         border: none;
         border-bottom: 2px solid transparent;
         color: #A0A0A0;                              /* muted_gray */
@@ -685,19 +700,18 @@ def get_lofi_button_styles() -> str:
     }
 
     QPushButton#lofiButton:hover {
-        background-color: #1A1A1A;                   /* surface_dark */
+        background-color: transparent;                   /* surface_dark */
         color: #FFFFFF;
     }
 
     QPushButton#lofiButton:pressed {
-        background-color: #1A1A1A;
+        background-color: transparent;
     }
 
     /* Когда LoFi играет (checked state) */
     QPushButton#lofiButton:checked {
-        background-color: #0D0D0D;
+        background-color: transparent;
         color: #FFFFFF;
-        border-bottom: 2px solid #8B5CF6;            /* nebula_purple */
         font-weight: 600;
     }
 

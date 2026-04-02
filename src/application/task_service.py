@@ -92,11 +92,22 @@ class TaskService:
 
     def get_all_active_tasks(self) -> list[TaskEntity]:
         """Get all active (non-completed) tasks.
-        
+
         Returns:
             list[TaskEntity]: List of active tasks.
         """
         return self._repository.get_all_active()
+
+    def get_todays_tasks(self) -> list[TaskEntity]:
+        """Get tasks created today.
+
+        Returns:
+            list[TaskEntity]: List of tasks created today.
+        """
+        today = datetime.now().date()
+        all_active = self._repository.get_all_active()
+        return [task for task in all_active 
+                if task.created_at.date() == today]
 
     def get_completed_tasks_by_date(self, date_value: datetime) -> list[TaskEntity]:
         """Get tasks completed on a specific date.

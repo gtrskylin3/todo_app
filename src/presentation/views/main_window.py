@@ -30,6 +30,7 @@ from src.config.settings import AppConfig
 from src.presentation.styles import get_active_tasks_view_styles, get_completed_tasks_view_styles, get_global_styles
 from src.presentation.views.active_tasks_view import ActiveTasksView
 from src.presentation.views.completed_tasks_view import CompletedTasksView
+from src.presentation.views.today_tasks_view import TodayTasksView
 from src.presentation.widgets.edit_task_dialog import EditTaskDialog
 from src.presentation.workers.db_worker import DatabaseWorker
 from src.settings import SettingsManager
@@ -65,6 +66,7 @@ class MainWindow(QMainWindow):
         self._previous_tab_index = 0  # Track previous tab for settings
         self._bg_pixmap = None  # Custom background pixmap
         self._lofi_player = None  # LoFi player widget
+        self._today_view = None  # Today tasks view
 
         self._setup_ui()
         self._apply_styles()
@@ -96,6 +98,14 @@ class MainWindow(QMainWindow):
         self._tab_widget.tabBar().setVisible(False)
         self._tab_widget.currentChanged.connect(self._on_tab_changed)
 
+        # Today tasks view (default tab)
+        self._today_view = TodayTasksView()
+        self._today_view.create_requested.connect(self._on_create_task)
+        self._today_view.toggle_requested.connect(self._on_toggle_task)
+        self._today_view.edit_requested.connect(self._on_edit_task)
+        self._today_view.delete_requested.connect(self._on_delete_task)
+        self._today_view.reopen_requested.connect(self._on_reopen_task)
+
         # Active tasks view
         self._active_view = ActiveTasksView()
         self._active_view.create_requested.connect(self._on_create_task)
@@ -111,6 +121,7 @@ class MainWindow(QMainWindow):
         # Settings view
         self._settings_view = self._create_settings_view()
 
+        self._tab_widget.addTab(self._today_view, "Today")
         self._tab_widget.addTab(self._active_view, "Active")
         self._tab_widget.addTab(self._completed_view, "Completed")
         self._tab_widget.addTab(self._settings_view, "Settings")
@@ -139,13 +150,21 @@ class MainWindow(QMainWindow):
         layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(0)
 
+        # Today button (default, first)
+        self._today_btn = QPushButton("Today")
+        self._today_btn.setObjectName("headerButton")
+        self._today_btn.setCheckable(True)
+        self._today_btn.setChecked(True)
+        self._today_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self._today_btn.clicked.connect(lambda: self._on_header_button_clicked(0))
+        layout.addWidget(self._today_btn)
+
         # Active button
         self._active_btn = QPushButton("Active")
         self._active_btn.setObjectName("headerButton")
         self._active_btn.setCheckable(True)
-        self._active_btn.setChecked(True)
         self._active_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._active_btn.clicked.connect(lambda: self._on_header_button_clicked(0))
+        self._active_btn.clicked.connect(lambda: self._on_header_button_clicked(1))
         layout.addWidget(self._active_btn)
 
         # Completed button
@@ -153,7 +172,7 @@ class MainWindow(QMainWindow):
         self._completed_btn.setObjectName("headerButton")
         self._completed_btn.setCheckable(True)
         self._completed_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._completed_btn.clicked.connect(lambda: self._on_header_button_clicked(1))
+        self._completed_btn.clicked.connect(lambda: self._on_header_button_clicked(2))
         layout.addWidget(self._completed_btn)
 
         # Settings button
@@ -161,7 +180,7 @@ class MainWindow(QMainWindow):
         self._settings_btn.setObjectName("headerButton")
         self._settings_btn.setCheckable(True)
         self._settings_btn.setCursor(Qt.CursorShape.PointingHandCursor)
-        self._settings_btn.clicked.connect(lambda: self._on_header_button_clicked(2))
+        self._settings_btn.clicked.connect(lambda: self._on_header_button_clicked(3))
         layout.addWidget(self._settings_btn)
 
         return header
@@ -192,13 +211,14 @@ class MainWindow(QMainWindow):
         """Handle header button click.
 
         Args:
-            index: Index of the button (0=Active, 1=Completed, 2=Settings).
+            index: Index of the button (0=Today, 1=Active, 2=Completed, 3=Settings).
         """
         self._tab_widget.setCurrentIndex(index)
         # Update button states
-        self._active_btn.setChecked(index == 0)
-        self._completed_btn.setChecked(index == 1)
-        self._settings_btn.setChecked(index == 2)
+        self._today_btn.setChecked(index == 0)
+        self._active_btn.setChecked(index == 1)
+        self._completed_btn.setChecked(index == 2)
+        self._settings_btn.setChecked(index == 3)
 
     def _create_settings_view(self) -> QWidget:
         """Create the settings view widget.
@@ -309,14 +329,14 @@ class MainWindow(QMainWindow):
         Args:
             index: Index of the selected tab.
         """
-        # Показываем LoFi только на вкладке Active (index=0)
+        # Показываем LoFi только на вкладке Today (index=0)
         if self._lofi_player:
             self._lofi_player.setVisible(index == 0)
             # Поднимаем кнопку выше контента
             if index == 0:
                 self._lofi_player.raise_()
 
-        if index == 2:  # Settings tab
+        if index == 3:  # Settings tab
             # Load current settings into UI
             self._load_settings_into_ui()
 
@@ -396,8 +416,30 @@ class MainWindow(QMainWindow):
 
     def _load_initial_data(self) -> None:
         """Load initial task data from the database."""
+        self._load_today_tasks()
         self._load_active_tasks()
         self._load_completed_tasks()
+
+    def _load_today_tasks(self) -> None:
+        """Load today's tasks in a background thread."""
+        def fetch_today():
+            return self._task_service.get_todays_tasks()
+
+        worker = DatabaseWorker(fetch_today)
+        worker.signals.result.connect(self._on_today_tasks_loaded)
+        worker.signals.error.connect(self._on_operation_error)
+        worker.finished.connect(lambda: self._cleanup_worker(worker))
+        self._workers.append(worker)
+        worker.start()
+
+    def _on_today_tasks_loaded(self, tasks) -> None:
+        """Handle today's tasks loaded from database.
+
+        Args:
+            tasks: List of TaskEntity objects.
+        """
+        self._today_view.set_tasks(tasks)
+        logger.debug(f"Loaded {len(tasks)} today's tasks")
 
     def _load_active_tasks(self) -> None:
         """Load active tasks in a background thread."""
@@ -474,12 +516,13 @@ class MainWindow(QMainWindow):
 
     def _on_create_result(self, result: TaskServiceResult) -> None:
         """Handle create task result.
-        
+
         Args:
             result: Result of the create operation.
         """
         if result.success:
             logger.info(f"Task created: {result.task.title if result.task else 'unknown'}")
+            self._today_view.handle_operation_result(result, 'create')
             self._active_view.handle_operation_result(result, 'create')
             # Reload completed tasks in case we need to refresh
             self._load_completed_tasks()
@@ -504,12 +547,13 @@ class MainWindow(QMainWindow):
 
     def _on_toggle_result(self, result: TaskServiceResult, task_id: int) -> None:
         """Handle toggle task result.
-        
+
         Args:
             result: Result of the toggle operation.
             task_id: ID of the toggled task.
         """
         if result.success:
+            self._today_view.handle_operation_result(result, 'toggle', task_id)
             self._active_view.handle_operation_result(result, 'toggle', task_id)
             # Reload completed tasks to show newly completed task
             self._load_completed_tasks()
@@ -591,13 +635,14 @@ class MainWindow(QMainWindow):
 
     def _on_delete_result(self, result: TaskServiceResult, task_id: int) -> None:
         """Handle delete task result.
-        
+
         Args:
             result: Result of the delete operation.
             task_id: ID of the deleted task.
         """
         if result.success:
             logger.info(f"Task {task_id} deleted")
+            self._today_view.handle_operation_result(result, 'delete', task_id)
             self._active_view.handle_operation_result(result, 'delete', task_id)
         else:
             self._show_error_message(f"Failed to delete task: {result.error}")
